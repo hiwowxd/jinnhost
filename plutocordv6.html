@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pluto | v6 </title>
+    <style>
+        :root {
+            --background-color: #06080a;
+            --container-bg: rgba(13, 17, 23, 0.98);
+            --input-bg: #161b22;
+            --border-color: #30363d;
+            --accent-color: #007bff;
+            --accent-hover: #0056b3;
+            --text-color: #c9d1d9;
+            --text-muted: #8b949e;
+            --danger: #ff4444;
+            --transition-speed: 0.25s;
+            --sidebar-width: 180px;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at center, #0d1117 0%, #06080a 100%);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0; color: var(--text-color);
+            transition: background 1.2s ease;
+        }
+
+        @keyframes rainbowFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body.rainbow-mode {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbowFlow 14s ease infinite;
+        }
+
+        .app {
+            display: flex;
+            background: var(--container-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 16px;
+            width: 800px;
+            height: 600px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.65), 0 0 0 1px var(--border-color);
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            text-align: center; color: var(--accent-color);
+            font-size: 28px; letter-spacing: -1.5px; margin: 0 0 24px 0;
+            font-weight: 900;
+        }
+
+        .nav-item {
+            padding: 10px 16px; cursor: pointer; border-radius: 8px;
+            font-size: 14px; color: var(--text-muted); font-weight: 600;
+            transition: all var(--transition-speed) ease;
+            margin-bottom: 8px;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
+        .nav-item.active { color: white; background: var(--accent-color); }
+
+        .content {
+            flex: 1;
+            padding: 28px;
+            overflow-y: auto;
+        }
+
+        .tab-content { display: none; animation: slideUpFade 0.35s ease-out; }
+        .tab-content.active { display: block; }
+
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        input, textarea, button, select {
+            width: 100%; margin-top: 12px; padding: 12px 14px;
+            border-radius: 10px; border: 1px solid var(--border-color);
+            background: var(--input-bg); color: var(--text-color);
+            font-size: 14px; box-sizing: border-box; outline: none;
+            transition: border-color var(--transition-speed);
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+        }
+
+        .blue-btn {
+            background: var(--accent-color); color: white; border: none;
+            font-weight: 700; cursor: pointer; margin-top: 16px;
+            transition: all var(--transition-speed);
+        }
+        .blue-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+        .red-btn {
+            background: #442222; color: var(--danger); border: none;
+            font-weight: 700; cursor: pointer; margin-top: 16px;
+        }
+        .red-btn:hover { background: #551111; }
+
+        .section-title {
+            margin: 20px 0 8px; font-weight: 800; font-size: 11px;
+            text-transform: uppercase; color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px; letter-spacing: 1px;
+        }
+
+        .checkbox-label {
+            display: flex; align-items: center; gap: 10px;
+            margin-top: 10px; font-size: 13px; color: var(--text-muted);
+            cursor: pointer; user-select: none;
+        }
+        .checkbox-label input { width: auto; margin: 0; accent-color: var(--accent-color); }
+
+        .two-column { display: flex; gap: 12px; }
+        .two-column > * { flex: 1; }
+
+        #statusLog {
+            font-size: 12px; color: var(--text-muted);
+            margin-top: 16px; text-align: center; font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <h2>pluto</h2>
+            <div class="nav-item active" data-tab="normal">Normal</div>
+            <div class="nav-item" data-tab="beefer">AutoBeefer</div>
+            <div class="nav-item" data-tab="wl">WL Gen</div>
+            <div class="nav-item" data-tab="legit">Legit</div>
+            <div class="nav-item" data-tab="afk">Anti AFK</div>
+            <div class="nav-item" data-tab="paster">AutoPaster</div>
+            <div class="nav-item" data-tab="options">Options</div>
+        </div>
+
+        <div class="content">
+            <!-- Normal Tab -->
+            <div class="tab-content active" id="normal-tab">
+                <div class="two-column">
+                    <input type="password" id="token" placeholder="User Token">
+                    <input type="text" id="channel" placeholder="Channel ID">
+                </div>
+                <textarea id="message" placeholder="Message content..." rows="4"></textarea>
+                <div class="two-column">
+                    <label class="checkbox-label"><input type="checkbox" id="normalBold">Auto-Bold</label>
+                    <label class="checkbox-label"><input type="checkbox" id="normalUpper">Force Upper</label>
+                </div>
+                <button id="sendBtn" class="blue-btn">Send Message</button>
+                <div id="statusLog">Status: System Online</div>
+            </div>
+
+            <!-- AutoBeefer Tab -->
+            <div class="tab-content" id="beefer-tab">
+                <div class="section-title">Wordlist</div>
+                <input type="file" id="beeferFile" accept=".txt">
+                <div class="two-column">
+                    <label class="checkbox-label"><input type="checkbox" id="beeferBold">Force Bold</label>
+                    <label class="checkbox-label"><input type="checkbox" id="beeferLadder">Ladder Mode</label>
+                </div>
+                <select id="beeferOrder">
+                    <option value="sequential">Sequential</option>
+                    <option value="random">Random</option>
+                </select>
+                <label style="font-size: 13px; margin: 12px 0 4px; display: block;">
+                    Delay: <span id="beeferDelayVal">0.01</span>s
+                </label>
+                <input type="range" id="beeferDelay" min="0.01" max="5" step="0.01" value="0.01">
+                <div class="two-column">
+                    <button id="startBeefer" class="blue-btn">Start Beefer</button>
+                    <button id="stopBeefer" class="red-btn">Stop</button>
+                </div>
+            </div>
+
+            <!-- Wordlist Generator -->
+            <div class="tab-content" id="wl-tab">
+                <div class="section-title">Wordlist Generator</div>
+                <div class="two-column">
+                    <input type="number" id="wlAmount" min="1" max="5000" value="100">
+                    <button id="genWl" class="blue-btn">Generate</button>
+                </div>
+                <textarea id="wlOutput" rows="8" style="font-family: monospace; margin-top: 12px;"></textarea>
+            </div>
+
+            <!-- Legit Beefing -->
+            <div class="tab-content" id="legit-tab">
+                <div class="section-title">Manual / Trigger Beefing</div>
+                <label class="checkbox-label"><input type="checkbox" id="enableLegit">Enable Legit Beefer</label>
+                <input type="file" id="legitFile" accept=".txt">
+
+                <div class="section-title" style="margin-top:16px;">Message Formatting</div>
+                <div class="two-column">
+                    <label class="checkbox-label"><input type="checkbox" id="legitUpper">Force UPPERCASE</label>
+                    <label class="checkbox-label"><input type="checkbox" id="legitLower">force lowercase</label>
+                </div>
+                <label class="checkbox-label"><input type="checkbox" id="legitBold">Force **Bold**</label>
+
+                <div class="section-title" style="margin-top:16px;">Trigger Key</div>
+                <select id="triggerKey">
+                    <option value="Delete">Delete Key</option>
+                    <option value="F1">F1 Key</option>
+                    <option value="F3">F3 Key</option>
+                </select>
+
+                <div id="nextLegit" style="padding:16px; border:1px dashed var(--accent-color); text-align:center; margin:16px 0; color:#58a6ff; border-radius:8px; min-height:48px; display:flex; align-items:center; justify-content:center;">
+                    Load wordlist...
+                </div>
+
+                <p style="font-size:11px; color:#777; text-align:center; margin:0; line-height:1.5;">
+                    <b>F2</b> = 1× Send  |  <b>Enter</b> = 2× Send  |  <b>Trigger Key</b> = 1× Send  |  <b>Hold Shift + Trigger</b> = Burst (5×)<br>
+                    <b>Double Enter</b> (quick) = 1× Send<br>
+                    <b>Messages are now random & never repeat back-to-back</b>
+                </p>
+            </div>
+
+            <!-- Anti-AFK -->
+            <div class="tab-content" id="afk-tab">
+                <div class="section-title">Anti-AFK</div>
+                <label class="checkbox-label"><input type="checkbox" id="enableAFK">Enable Auto-Reply</label>
+                <textarea id="afkTriggers" rows="3" placeholder="Triggers (comma-separated)">present, here, say present</textarea>
+                <input type="text" id="afkReply" value="im here" placeholder="Reply message">
+                <label style="font-size: 13px; margin: 12px 0 4px; display: block;">
+                    Poll Interval: <span id="afkPollVal">5</span>s
+                </label>
+                <input type="range" id="afkPoll" min="1" max="30" step="1" value="5">
+                <div class="two-column">
+                    <button id="startAFK" class="blue-btn">Start Monitoring</button>
+                    <button id="stopAFK" class="red-btn">Stop</button>
+                </div>
+            </div>
+
+            <!-- AutoPaster -->
+            <div class="tab-content" id="paster-tab">
+                <div class="section-title">Auto Paster</div>
+                <input type="file" id="pasterFile" accept=".txt">
+                <div class="two-column">
+                    <input type="number" id="minDelay" min="0.01" max="30" step="0.01" value="0.01" placeholder="Min delay (s)">
+                    <input type="number" id="maxDelay" min="0.01" max="60" step="0.01" value="0.5" placeholder="Max delay (s)">
+                </div>
+                <div class="two-column">
+                    <button id="startPaster" class="blue-btn">Start Paster</button>
+                    <button id="stopPaster" class="red-btn">Stop</button>
+                </div>
+            </div>
+
+            <!-- Options -->
+            <div class="tab-content" id="options-tab">
+                <div class="section-title">Auto React</div>
+                <label class="checkbox-label"><input type="checkbox" id="autoReact" checked>React to own messages</label>
+                <input type="text" id="reactEmoji" value="☠️" placeholder="Emoji (e.g. 🔥 ☠️)">
+                <button id="toggleRainbow" class="blue-btn" style="margin-top:20px;">Toggle Rainbow Background</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ────────────────────────────────────────────────
+        //  Cached DOM elements
+        // ────────────────────────────────────────────────
+        const els = {
+            token: document.getElementById('token'),
+            channel: document.getElementById('channel'),
+            status: document.getElementById('statusLog'),
+            autoReact: document.getElementById('autoReact'),
+            reactEmoji: document.getElementById('reactEmoji')
+        };
+
+        // ────────────────────────────────────────────────
+        //  State
+        // ────────────────────────────────────────────────
+        let beeferMsgs = [], pasterMsgs = [], legitMsgs = [];
+        let beeferRunning = false, pasterRunning = false, afkRunning = false;
+        let beeferIdx = 0, pasterIdx = 0;
+
+        // For legit random non-repeating
+        let lastSentLegitIndex = -1;
+
+        const log = msg => {
+            if (els.status) els.status.textContent = `Status: ${msg}`;
+        };
+
+        // ────────────────────────────────────────────────
+        //  Core Send Function
+        // ────────────────────────────────────────────────
+        async function sendMessage(content, source = 'normal') {
+            const token = els.token.value.trim();
+            const channel = els.channel.value.trim();
+            if (!token || !channel) {
+                log("Missing token or channel");
+                return false;
+            }
+
+            let msg = content.trim();
+            if (!msg) return false;
+
+            if (source === 'beefer' || source === 'legit' || source === 'paster') {
+                if (document.getElementById('beeferBold')?.checked) msg = `**${msg}**`;
+                if (document.getElementById('beeferLadder')?.checked) msg = msg.split(' ').join('\n');
+            }
+
+            if (source === 'legit') {
+                const upper = document.getElementById('legitUpper')?.checked;
+                const lower = document.getElementById('legitLower')?.checked;
+                const bold  = document.getElementById('legitBold')?.checked;
+
+                if (upper)  msg = msg.toUpperCase();
+                if (lower)  msg = msg.toLowerCase();
+                if (bold)   msg = `**${msg}**`;
+            }
+            else if (source === 'normal') {
+                if (document.getElementById('normalBold')?.checked) msg = `**${msg}**`;
+                if (document.getElementById('normalUpper')?.checked) msg = msg.toUpperCase();
+            }
+
+            try {
+                const res = await fetch(`https://discord.com/api/v9/channels/${channel}/messages`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": token,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ content: msg })
+                });
+
+                if (res.ok) {
+                    if (els.autoReact.checked && source !== 'afk') {
+                        const data = await res.json();
+                        const emoji = els.reactEmoji.value.trim();
+                        if (emoji) {
+                            await fetch(`https://discord.com/api/v9/channels/${channel}/messages/${data.id}/reactions/${encodeURIComponent(emoji)}/@me`, {
+                                method: "PUT",
+                                headers: { "Authorization": token }
+                            });
+                        }
+                    }
+                    return true;
+                } else {
+                    const errorData = await res.json().catch(() => ({}));
+                    log(`Send failed (${res.status}): ${errorData.message || 'Unknown error'}`);
+                    return false;
+                }
+            } catch (err) {
+                log("Network error: " + err.message);
+                return false;
+            }
+        }
+
+        // ────────────────────────────────────────────────
+        //  Sidebar Navigation
+        // ────────────────────────────────────────────────
+        document.querySelectorAll('.nav-item').forEach(nav => {
+            nav.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item, .tab-content').forEach(el => el.classList.remove('active'));
+                nav.classList.add('active');
+                document.getElementById(`${nav.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // ────────────────────────────────────────────────
+        //  Normal Tab - Send
+        // ────────────────────────────────────────────────
+        const msgInput = document.getElementById('message');
+        msgInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (msgInput.value.trim()) {
+                    sendMessage(msgInput.value);
+                    msgInput.value = '';
+                }
+            }
+        });
+
+        document.getElementById('sendBtn').addEventListener('click', () => {
+            if (msgInput.value.trim()) {
+                sendMessage(msgInput.value);
+                msgInput.value = '';
+            }
+        });
+
+        // ────────────────────────────────────────────────
+        //  AutoBeefer
+        // ────────────────────────────────────────────────
+        document.getElementById('beeferFile').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                beeferMsgs = ev.target.result.split('\n').map(s => s.trim()).filter(Boolean);
+                beeferIdx = 0;
+                log(`Loaded ${beeferMsgs.length} lines for Beefer`);
+            };
+            reader.onerror = () => log('File read error');
+            reader.readAsText(file);
+        });
+
+        document.getElementById('startBeefer').addEventListener('click', async () => {
+            if (beeferRunning || !beeferMsgs.length) return;
+            beeferRunning = true;
+            log("Beefer started");
+
+            const delayEl = document.getElementById('beeferDelay');
+            const order = document.getElementById('beeferOrder').value;
+
+            while (beeferRunning && beeferMsgs.length) {
+                const msg = order === 'random'
+                    ? beeferMsgs[Math.floor(Math.random() * beeferMsgs.length)]
+                    : beeferMsgs[beeferIdx % beeferMsgs.length];
+
+                const success = await sendMessage(msg, 'beefer');
+                if (!success) break;
+                beeferIdx++;
+                await new Promise(r => setTimeout(r, delayEl.value * 1000));
+            }
+            beeferRunning = false;
+            log("Beefer stopped");
+        });
+
+        document.getElementById('stopBeefer').addEventListener('click', () => {
+            beeferRunning = false;
+            log("Beefer stopping...");
+        });
+
+        document.getElementById('beeferDelay').addEventListener('input', e => {
+            document.getElementById('beeferDelayVal').textContent = e.target.value;
+        });
+
+        // ────────────────────────────────────────────────
+        //  Legit / Trigger Mode (now fully random + no consecutive repeats)
+        // ────────────────────────────────────────────────
+        const nextLegitEl = document.getElementById('nextLegit');
+
+        let lastEnterTime = 0;
+        const DOUBLE_ENTER_THRESHOLD = 400; // ms
+
+        document.getElementById('legitFile').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                legitMsgs = ev.target.result.split('\n').map(s => s.trim()).filter(Boolean);
+                lastSentLegitIndex = -1;
+                updateLegitPreview();
+                log(`Legit loaded ${legitMsgs.length} lines (random mode + no repeats)`);
+            };
+            reader.onerror = () => log('File read error');
+            reader.readAsText(file);
+        });
+
+        function updateLegitPreview() {
+            if (!legitMsgs.length) {
+                nextLegitEl.textContent = "No messages loaded";
+                return;
+            }
+
+            // Show a random one as preview (just for UI)
+            const randomIdx = Math.floor(Math.random() * legitMsgs.length);
+            nextLegitEl.textContent = legitMsgs[randomIdx] || "End of list.";
+        }
+
+        function getRandomNonRepeatIndex() {
+            if (legitMsgs.length <= 1) return 0;
+
+            let idx;
+            do {
+                idx = Math.floor(Math.random() * legitMsgs.length);
+            } while (idx === lastSentLegitIndex);
+
+            lastSentLegitIndex = idx;
+            return idx;
+        }
+
+        document.addEventListener('keydown', e => {
+            if (!document.getElementById('enableLegit')?.checked) return;
+            if (!legitMsgs.length) return;
+
+            let sendCount = 0;
+            const triggerKey = document.getElementById('triggerKey')?.value;
+
+            // Normal triggers
+            if (e.key === 'F2')              sendCount = 1;
+            else if (e.key === 'Enter')       sendCount = 2;
+            else if (e.key === triggerKey)    sendCount = e.shiftKey ? 5 : 1;
+
+            // Double Enter → 1 send
+            if (e.key === 'Enter') {
+                const now = Date.now();
+                if (now - lastEnterTime < DOUBLE_ENTER_THRESHOLD && !e.repeat) {
+                    sendCount = 1;
+                }
+                lastEnterTime = now;
+            }
+
+            if (sendCount > 0) {
+                e.preventDefault();
+
+                const idx = getRandomNonRepeatIndex();
+                let msg = legitMsgs[idx];
+
+                // Apply formatting
+                const upper = document.getElementById('legitUpper')?.checked;
+                const lower = document.getElementById('legitLower')?.checked;
+                const bold  = document.getElementById('legitBold')?.checked;
+
+                if (upper)  msg = msg.toUpperCase();
+                if (lower)  msg = msg.toLowerCase();
+                if (bold)   msg = `**${msg}**`;
+
+                for (let i = 0; i < sendCount; i++) {
+                    sendMessage(msg, 'legit');
+                }
+
+                updateLegitPreview();
+            }
+        });
+
+        // ────────────────────────────────────────────────
+        //  Wordlist Generator
+        // ────────────────────────────────────────────────
+        document.getElementById('genWl').addEventListener('click', () => {
+            const count = Math.min(5000, Math.max(1, parseInt(document.getElementById('wlAmount').value) || 50));
+            const prefixes = ['UR', 'YOU ARE', '# UR', 'UR MY', 'FAT ASS', 'UGLY ASS', 'SLOW ASS', 'SHITTY ASS', 'RETARDED ASS', 'FAGGOT ASS', 'THOT ASS', 'HOE ASS', 'PUSSY ASS', 'LAME ASS', 'DORK ASS', 'MORON ASS', 'CRINGE ASS', 'FRAIL ASS', 'CORNY ASS', 'BORING ASS', 'DIRTY ASS', 'DISGUSTING ASS', 'HORRIBLE ASS', 'SASSY ASS', 'SLUTTY ASS', 'WEAK ASS', 'SOFT ASS', 'GAY ASS', 'FEMBOY ASS', 'TRANSGENDER ASS', 'PEDOPHILE ASS', 'LONER ASS', 'LOSER ASS', 'NERD ASS', 'CUCK ASS', 'BITCH ASS'];
+            const nouns = ['NIGGA', 'BITCH', 'RETARD', 'DORK', 'CUCK', 'LOSER', 'MORON', 'FAGGOT', 'THOT', 'HOE', 'PUSSY', 'LITTLE FUCKING NERD', 'ASS BITCH', 'ASS NIGGA', 'FUCKING RETARD', 'FUCKING LOSER', 'FUCKING JR', 'FUCKING SON', 'FUCKING BITCH', 'LITTLE BITCH', 'ASS RETARD', 'ASS CUCK', 'ASS DORK', 'ASS MORON', 'ASS LOSER'];
+            const intensifiers = ['AS FUCK', 'AS SHIT', 'LMFAO', 'SHUT THE FUCK UP', 'YOUR SO FUCKING UGLY', 'YOUR SLOW AS FUCK', 'YOUR MY FUCKING SON', 'YOUR MY FUCKING JR', 'YOUR MY BITCH', 'YOUR TRASH AS FUCK', 'YOUR CRINGE AS FUCK', 'YOUR SASSY AS FUCK', 'YOUR HORRIBLE AS FUCK', 'YOUR DISGUSTING', 'YOUR RETARDED AS FUCK', 'YOUR FAT AS FUCK', 'YOUR WEAK AS FUCK', 'YOUR SLUTTY AS FUCK', 'YOUR A FUCKING DORK', 'YOUR A FUCKING LOSER', 'YOUR A FUCKING RETARD', 'YOUR A FUCKING CUCK', 'YOUR A PEDOPHILE', 'YOUR A NOBODY', 'YOUR LONELY', 'YOUR UGLY AS FUCK', 'NIGGA DIED', 'UR ASS AS FUCK', 'UR MY FUCKING BITCH'];
+            let out = '';
+            for (let i = 0; i < count; i++) {
+                const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+                const noun = nouns[Math.floor(Math.random() * nouns.length)];
+                const intensifier = intensifiers[Math.floor(Math.random() * intensifiers.length)];
+                out += `${prefix} ${noun} ${intensifier}\n`.toUpperCase();
+            }
+            document.getElementById('wlOutput').value = out;
+            log(`Generated ${count} phrases`);
+        });
+
+        // ────────────────────────────────────────────────
+        //  Anti-AFK
+        // ────────────────────────────────────────────────
+        let afkInterval = null;
+        let processedMessageIds = new Set();
+        let lastProcessedTimestamp = null;
+
+        document.getElementById('startAFK').addEventListener('click', () => {
+            if (afkRunning) return;
+            afkRunning = true;
+
+            processedMessageIds.clear();
+            lastProcessedTimestamp = null;
+
+            const pollSec = document.getElementById('afkPoll').value * 1000;
+            const triggers = document.getElementById('afkTriggers').value
+                .split(',')
+                .map(t => t.trim().toLowerCase())
+                .filter(Boolean);
+            const reply = document.getElementById('afkReply').value.trim();
+
+            if (!triggers.length || !reply) {
+                log("Missing triggers or reply");
+                afkRunning = false;
+                return;
+            }
+
+            log("AFK monitoring started (spam-protected)");
+
+            afkInterval = setInterval(async () => {
+                if (!afkRunning) return;
+                const token = els.token.value.trim();
+                const channel = els.channel.value.trim();
+                if (!token || !channel) return;
+
+                try {
+                    let url = `https://discord.com/api/v9/channels/${channel}/messages?limit=50`;
+                    if (lastProcessedTimestamp) {
+                        url += `&after=${lastProcessedTimestamp}`;
+                    }
+
+                    const res = await fetch(url, {
+                        headers: { "Authorization": token }
+                    });
+
+                    if (!res.ok) {
+                        log(`AFK fetch failed (${res.status})`);
+                        return;
+                    }
+
+                    const messages = await res.json();
+                    if (messages.length === 0) return;
+
+                    const newestTs = messages[0].timestamp;
+                    lastProcessedTimestamp = newestTs;
+
+                    let repliedThisPoll = false;
+
+                    for (const msg of messages) {
+                        const msgId = msg.id;
+                        if (processedMessageIds.has(msgId)) continue;
+                        processedMessageIds.add(msgId);
+
+                        const content = msg.content.toLowerCase().trim();
+                        if (triggers.some(t => content.includes(t))) {
+                            if (!repliedThisPoll) {
+                                const success = await sendMessage(reply, 'afk');
+                                if (success) {
+                                    log(`AFK reply → ${msg.author?.username || 'user'}: "${msg.content.substring(0,35)}..."`);
+                                    repliedThisPoll = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if (processedMessageIds.size > 1500) {
+                        const keep = [...processedMessageIds].slice(-1000);
+                        processedMessageIds = new Set(keep);
+                    }
+
+                } catch (err) {
+                    log(`AFK error: ${err.message}`);
+                }
+            }, pollSec);
+        });
+
+        document.getElementById('stopAFK').addEventListener('click', () => {
+            afkRunning = false;
+            if (afkInterval) clearInterval(afkInterval);
+            log("AFK monitoring stopped");
+        });
+
+        document.getElementById('afkPoll').addEventListener('input', e => {
+            document.getElementById('afkPollVal').textContent = e.target.value;
+        });
+
+        // ────────────────────────────────────────────────
+        //  AutoPaster
+        // ────────────────────────────────────────────────
+        document.getElementById('pasterFile').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                pasterMsgs = ev.target.result.split('\n').map(s => s.trim()).filter(Boolean);
+                pasterIdx = 0;
+                log(`Loaded ${pasterMsgs.length} lines for Paster`);
+            };
+            reader.onerror = () => log('File read error');
+            reader.readAsText(file);
+        });
+
+        document.getElementById('startPaster').addEventListener('click', async () => {
+            if (pasterRunning || !pasterMsgs.length) return;
+            pasterRunning = true;
+            log("Paster started");
+
+            const minDelay = parseFloat(document.getElementById('minDelay').value) * 1000;
+            const maxDelay = parseFloat(document.getElementById('maxDelay').value) * 1000;
+
+            while (pasterRunning && pasterMsgs.length) {
+                const msg = pasterMsgs[pasterIdx % pasterMsgs.length];
+                const success = await sendMessage(msg, 'paster');
+                if (!success) break;
+                pasterIdx++;
+                const randomDelay = Math.random() * (maxDelay - minDelay) + minDelay;
+                await new Promise(r => setTimeout(r, randomDelay));
+            }
+            pasterRunning = false;
+            log("Paster stopped");
+        });
+
+        document.getElementById('stopPaster').addEventListener('click', () => {
+            pasterRunning = false;
+            log("Paster stopping...");
+        });
+
+        // ────────────────────────────────────────────────
+        //  Rainbow Toggle
+        // ────────────────────────────────────────────────
+        document.getElementById('toggleRainbow').addEventListener('click', () => {
+            document.body.classList.toggle('rainbow-mode');
+        });
+
+        log("Interface ready • Legit = random + no consecutive repeats");
+    </script>
+</body>
+</html>
