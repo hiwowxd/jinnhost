@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jinnhost</title>
+    <style>
+        :root {
+            --primary-color: #00aaff;
+            --secondary-color: #00ffff;
+            --background-color: #0a0f1a;
+            --text-color: #e0f7ff;
+            --accent-color: #40c4ff;
+            --transition-speed: 0.5s;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--background-color), #111827);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* custom scrollbar (scroll wheel look) */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1525;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
+            50% { text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color); }
+            100% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes backgroundFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #0288d1);
+            background-size: 400% 400%;
+            opacity: 0.08;
+            animation: backgroundFlow 18s ease infinite;
+            z-index: -1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            animation: fadeIn 1.2s ease-out, glow 3s infinite;
+        }
+
+        .header h1 {
+            font-size: 3.8em;
+            margin: 0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .message {
+            font-size: 1.4em;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background: rgba(0, 170, 255, 0.12);
+            border-radius: 12px;
+            width: fit-content;
+            animation: fadeIn 1.6s ease-out;
+            transition: all var(--transition-speed);
+        }
+
+        .message:hover {
+            background: rgba(0, 170, 255, 0.22);
+            transform: translateY(-4px);
+        }
+
+        .hosted-files {
+            width: 85%;
+            max-width: 720px;
+            background: rgba(15, 25, 40, 0.65);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 20px auto 80px;
+            box-shadow: 0 0 30px rgba(0, 170, 255, 0.35);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hosted-files h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            animation: pulse 2.5s infinite;
+        }
+
+        .tip {
+            text-align: center;
+            font-size: 0.95em;
+            color: #a5d8ff;
+            margin: 15px 0 25px;
+            line-height: 1.4;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-item {
+            margin: 14px 0;
+            padding: 16px 20px;
+            background: rgba(0, 170, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed);
+        }
+
+        .file-item:hover {
+            background: rgba(0, 170, 255, 0.18);
+            transform: translateY(-3px);
+        }
+
+        .download-btn {
+            background: var(--accent-color);
+            color: #0a0f1a;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all var(--transition-speed);
+            animation: pulse 2s infinite;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 170, 255, 0.5);
+        }
+
+        #loading {
+            text-align: center;
+            font-style: italic;
+            color: #80deea;
+            margin: 30px 0;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.85em;
+            color: #80deea;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>jinnhost</h1>
+    </header>
+
+    <div class="message">
+        add hi299 on discord
+    </div>
+
+    <section class="hosted-files">
+        <h2>hosted files</h2>
+
+        <p class="tip">
+            tip: for .html files — right-click the download button → "save link as…" <br>
+            (browsers like to open html files instead of downloading them)
+        </p>
+
+        <div id="loading">loading files from github...</div>
+        <ul class="file-list" id="fileList"></ul>
+    </section>
+
+    <footer>
+        © 2026 jinnhost — made by pluto xd
+    </footer>
+
+    <script>
+        const GITHUB_USER = "hiwowxd";
+        const GITHUB_REPO = "jinnhost";
+        const BRANCH = "main";
+        const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${BRANCH}/`;
+
+        async function loadFiles() {
+            const fileList = document.getElementById('fileList');
+            const loading = document.getElementById('loading');
+            fileList.innerHTML = '';
+
+            try {
+                const treeUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/trees/${BRANCH}?recursive=1`;
+                const response = await fetch(treeUrl, {
+                    headers: { 'Accept': 'application/vnd.github.v3+json' }
+                });
+
+                if (!response.ok) throw new Error(`github api error: ${response.status}`);
+
+                const data = await response.json();
+                const files = data.tree.filter(item => item.type === 'blob');
+
+                if (files.length === 0) {
+                    loading.textContent = 'no files found in the repo.';
+                    return;
+                }
+
+                loading.style.display = 'none';
+
+                files.forEach(file => {
+                    const path = file.path;
+                    const filename = path.split('/').pop();
+
+                    if (filename === 'index.html') return;
+
+                    const li = document.createElement('li');
+                    li.className = 'file-item';
+                    const isHtml = filename.toLowerCase().endsWith('.html');
+
+                    let btnHtml = `
+                        <button class="download-btn" onclick="forceDownload('${RAW_BASE}${path}', '${filename}')">download</button>
+                    `;
+
+                    if (!isHtml) {
+                        btnHtml = `
+                            <a href="${RAW_BASE}${path}" download="${filename}" target="_blank" class="download-btn">download</a>
+                        `;
+                    }
+
+                    li.innerHTML = `
+                        <span>${filename}</span>
+                        ${btnHtml}
+                    `;
+                    fileList.appendChild(li);
+                });
+
+            } catch (err) {
+                console.error(err);
+                loading.textContent = 'failed to load files. repo must be public.';
+            }
+        }
+
+        function forceDownload(url, filename) {
+            fetch(url)
+                .then(res => res.blob())
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('download failed — try right-click → save link as…');
+                });
+        }
+
+        window.addEventListener('load', loadFiles);
+    </script>
+</body>
+</html>
