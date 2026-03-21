@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>jinncord </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ——————————————————  RED & BLACK THEME —————————————————— */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #0a0000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #f5e0e0;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: #110000;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -10px rgba(180, 0, 0, 0.3);
+            overflow: hidden;
+            border: 1px solid rgba(200, 0, 0, 0.2);
+        }
+
+        /* header */
+        .header {
+            background: linear-gradient(145deg, #1a0000 0%, #3a0000 100%);
+            padding: 22px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(200, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: #ff3333;
+            filter: drop-shadow(0 2px 8px rgba(255,0,0,0.5));
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #ff6666, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: rgba(180, 0, 0, 0.3);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ff9999;
+            border: 1px solid rgba(255, 50, 50, 0.3);
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid rgba(200, 0, 0, 0.3);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            background: #ff3333;
+            box-shadow: 0 0 8px #ff0000;
+        }
+
+        .dot.inactive {
+            background: #5a2222;
+            box-shadow: none;
+        }
+
+        .panel-body {
+            padding: 30px 28px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 24px;
+            min-height: 650px;
+        }
+
+        /* sidebar */
+        .sidebar {
+            width: 260px;
+            background: #0d0000;
+            border-radius: 20px;
+            padding: 15px 0;
+            border: 1px solid #2a0000;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-title {
+            color: #cc4444;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 15px 8px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #2a0000;
+        }
+
+        .sidebar-item {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #cc6666;
+        }
+
+        .sidebar-item:hover {
+            background-color: #1a0000;
+            color: #ff9999;
+        }
+
+        .sidebar-item.active {
+            background: #200000;
+            color: #ff4444;
+            border-left: 3px solid #cc0000;
+        }
+
+        .sidebar-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .tab-content {
+            flex: 1;
+            background: #0d0000;
+            border-radius: 20px;
+            padding: 20px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+            border: 1px solid #2a0000;
+            overflow-y: auto;
+            max-height: 650px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #cc4444;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control, input[type="text"], input[type="password"], input[type="number"], textarea, select {
+            width: 100%;
+            background: #1a0000;
+            border: 1px solid #3a0000;
+            border-radius: 18px;
+            padding: 12px 18px;
+            color: #ffcccc;
+            font-size: 0.95rem;
+            transition: 0.2s ease;
+        }
+
+        .form-control:focus, input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #cc0000;
+            background: #220000;
+            box-shadow: 0 0 0 3px rgba(200, 0, 0, 0.25);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #1a0000;
+            border: 1px solid #440000;
+            color: #ffcccc;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-primary {
+            background: linear-gradient(145deg, #5a0000, #330000);
+            border: 1px solid #880000;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(145deg, #770000, #440000);
+            transform: translateY(-1px);
+            border-color: #cc0000;
+        }
+
+        .btn-success {
+            background: linear-gradient(145deg, #3a0000, #220000);
+            border: 1px solid #660000;
+        }
+
+        .btn-danger {
+            background: linear-gradient(145deg, #660000, #440000);
+            border: 1px solid #990000;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #550000;
+        }
+
+        .btn-outline:hover {
+            background: #1a0000;
+            border-color: #cc0000;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .btn-toggle {
+            background: #150000;
+            border: 1px solid #3a0000;
+        }
+
+        .btn-toggle.active {
+            background: #550000;
+            border-color: #cc0000;
+            color: #ffaaaa;
+        }
+
+        .card {
+            background: #150000;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #2a0000;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffcccc;
+        }
+
+        .card-title i {
+            color: #cc4444;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            padding: 5px 12px;
+            border-radius: 30px;
+            background: #150000;
+            border: 1px solid #3a0000;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-online { background: #ff3333; box-shadow: 0 0 8px #ff0000; }
+        .status-offline { background: #5a2222; }
+        .status-active, .status-warning { background: #ff6600; animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            color: #cc4444;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #1a0000;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #cc0000;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            background: #ff3333;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #440000;
+            border-radius: 6px;
+            background: #1a0000;
+            cursor: pointer;
+            position: relative;
+            transition: 0.2s;
+        }
+
+        .checkbox-input:checked {
+            background: #660000;
+            border-color: #cc0000;
+        }
+
+        .checkbox-input:checked::after {
+            content: "✓";
+            position: absolute;
+            color: #ffaaaa;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checkbox-label {
+            font-size: 0.9rem;
+            color: #ffcccc;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            display: block;
+            padding: 12px;
+            background: #1a0000;
+            border: 1px dashed #550000;
+            border-radius: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .file-label:hover {
+            border-color: #cc0000;
+            background: #220000;
+        }
+
+        .file-info {
+            font-size: 0.8rem;
+            color: #cc6666;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2a0000;
+        }
+
+        .chat-message-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .chat-display-name {
+            color: #ff9999;
+            font-weight: 600;
+        }
+
+        .chat-username {
+            color: #cc4444;
+            font-size: 0.8rem;
+        }
+
+        .chat-timestamp {
+            color: #993333;
+            font-size: 0.75rem;
+        }
+
+        .chat-message-body {
+            color: #ffcccc;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .sub-card {
+            background: #1a0000;
+            border-radius: 18px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid #2a0000;
+        }
+
+        .alias-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            background: #1a0000;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+        }
+
+        .alias-item button {
+            background: none;
+            border: none;
+            color: #ff4444;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #notification-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            padding: 12px 20px;
+            border-radius: 30px;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+            animation: slideIn 0.3s ease forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #150000;
+            border: 1px solid #3a0000;
+        }
+
+        .notification.success { border-left: 4px solid #ff3333; }
+        .notification.warning { border-left: 4px solid #ff6600; }
+        .notification.danger { border-left: 4px solid #cc0000; }
+        .notification.info { border-left: 4px solid #990000; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .typing-indicator {
+            display: none;
+            font-size: 0.8rem;
+            color: #cc4444;
+            margin-top: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .typing-indicator.active {
+            display: block;
+        }
+
+        .live-preview-box {
+            background: #0d0000;
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid #2a0000;
+            margin: 20px 0;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: #cc4444;
+            font-weight: 500;
+        }
+
+        .preview-content {
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            background: #080000;
+            border-radius: 14px;
+            padding: 14px;
+            border: 1px solid #330000;
+            color: #ffcccc;
+            white-space: pre-wrap;
+        }
+
+        .word-count-badge {
+            background: #1a0000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ff9999;
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 24px;
+            margin: 15px 0 5px;
+            color: #cc4444;
+            font-size: 0.85rem;
+        }
+
+        .pill {
+            background: #150000;
+            padding: 5px 14px;
+            border-radius: 30px;
+            color: #ff9999;
+            border: 1px solid #3a0000;
+        }
+
+        .copy-notice {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a0000;
+            border: 1px solid #880000;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #ffcccc;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+            z-index: 999;
+            box-shadow: 0 8px 20px black;
+        }
+        .copy-notice.show { opacity: 1; }
+
+        .stats-footer {
+            border-top: 1px solid #2a0000;
+            padding: 18px 28px;
+            display: flex;
+            justify-content: space-between;
+            color: #cc4444;
+            font-size: 0.85rem;
+            background: #080000;
+        }
+
+        @media (max-width: 900px) {
+            .main-content { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #080000; }
+        ::-webkit-scrollbar-thumb { background: #550000; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    <div id="notification-container"></div>
+    <div class="copy-notice" id="copyToast">📋 copied</div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+                <span class="logo-text">jinn cord · BEEF</span>
+                <span class="badge">classic</span>
+            </div>
+            <div class="connection-status" id="globalStatus">
+                <span class="dot inactive" id="statusDot"></span>
+                <span id="statusText">ready</span>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="main-content">
+                <!-- SIDEBAR (CORD jinn structure) -->
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Configuration</div>
+                        <div class="sidebar-item active" data-tab="accounts"><i class="fas fa-address-card"></i> Accounts</div>
+                        <div class="sidebar-item" data-tab="channel"><i class="fas fa-heart-crack"></i> Channel & Chat</div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Messaging</div>
+                        <div class="sidebar-item" data-tab="normal"><i class="fas fa-american-sign-language-interpreting"></i> Normal</div>
+                        <div class="sidebar-item" data-tab="adders"><i class="fas fa-bookmark"></i> Adders</div>
+                        <div class="sidebar-item" data-tab="pretype"><i class="fas fa-bone"></i> Pre-Typer</div>
+                        <div class="sidebar-item" data-tab="ladder"><i class="fas fa-bomb"></i> Ladder</div>
+                        <div class="sidebar-item" data-tab="autobeefer"><i class="fas fa-angle-double-up"></i> AutoBeef</div>
+                        <div class="sidebar-item" data-tab="additional"><i class="fas fa-plus-circle"></i> Manual</div>
+                        <div class="sidebar-item" data-tab="autopaster"><i class="fas fa-paste"></i> Spammer</div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Automation</div>
+                        <div class="sidebar-item" data-tab="keybindsender"><i class="fas fa-keyboard"></i> Keybind</div>
+                        <div class="sidebar-item" data-tab="antiafk"><i class="fas fa-user-clock"></i> Anti-AFK</div>
+                        <div class="sidebar-item" data-tab="titlechanger"><i class="fas fa-heading"></i> Gc Rotator</div>
+                        <div class="sidebar-item" data-tab="wordlistgen"><i class="fas fa-atom"></i> Wordlist Gen</div>
+                        <div class="sidebar-item" data-tab="stream"><i class="fas fa-stream"></i> Stream</div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Settings</div>
+                        <div class="sidebar-item" data-tab="options"><i class="fas fa-cog"></i> Options</div>
+                    </div>
+                </div>
+
+                <!-- TAB CONTENTS (All Bondcord tabs + new Wordlist Gen) -->
+                <!-- Accounts Tab -->
+                <div class="tab-content active" id="accounts-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-users-cog"></i> Manage Accounts</div>
+                        <div class="form-group"><label class="form-label">Select Account</label><select id="accountSelector" class="form-control"></select></div>
+                        <div class="btn-group"><button id="viewToken" class="btn btn-outline"><i class="fas fa-eye"></i> View Token</button><button id="removeAccount" class="btn btn-danger"><i class="fas fa-user-minus"></i> Remove Selected</button></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-user-plus"></i> Add New Account</div>
+                        <div class="form-group"><label class="form-label">Account Alias</label><input type="text" id="accountAlias" class="form-control" placeholder="A name for this account"></div>
+                        <div class="form-group"><label class="form-label">Discord Token</label><input type="password" id="newAccountToken" class="form-control" placeholder="User Token"></div>
+                        <button id="addAccount" class="btn btn-primary btn-block"><i class="fas fa-plus"></i> Add Account</button>
+                    </div>
+                </div>
+
+                <!-- Channel Tab -->
+                <div class="tab-content" id="channel-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-satellite-dish"></i> Channel Configuration</div>
+                        <div class="form-group"><label class="form-label">Global Channel ID</label><input type="text" id="globalChannelId" class="form-control" placeholder="Enter Channel ID for all features"></div>
+                        <div class="form-group"><label class="form-label">Global User Pings (comma-separated IDs)</label><input type="text" id="globalPingUsers" class="form-control" placeholder="User ID, another User ID, ..."></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-comments"></i> Live Chat Log</div>
+                        <div id="chatlogContainer" style="height: 350px; background-color: #080000; border-radius: 18px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column-reverse; border: 1px solid #2a0000;">
+                            <div id="chatlog" style="display: flex; flex-direction: column;"></div>
+                            <div id="chatlogStatus" style="margin: auto; color: #9baec8;">Enter a Channel ID to see live messages.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Normal Tab -->
+                <div class="tab-content" id="normal-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-comment-dots"></i> Message Content</div>
+                        <div class="form-group"><label class="form-label">Message (multi-line supported for burst)</label><textarea id="message" class="form-control" placeholder="Type or paste your message(s)..."></textarea></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-sliders-h"></i> Message Settings</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="enableDelay" class="checkbox-input"><span class="checkbox-label">Enable Delay (for message queue)</span></label></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="invertEnter" class="checkbox-input"><span class="checkbox-label">Invert Enter</span></label></div>
+                        <div class="form-group" id="delaySliderContainer" style="display: none;"><div class="slider-label"><span>Delay Duration</span><span id="delayValue">0.50</span>s</div><input type="range" id="delaySlider" min="0.05" max="5" step="0.05" value="0.5"></div>
+                        <div class="btn-group"><button id="normal-uppercase" data-feature="normal" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="normal-lowercase" data-feature="normal" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <button id="sendMessage" class="btn btn-primary btn-block"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </div>
+                </div>
+
+                <!-- Adders Tab -->
+                <div class="tab-content" id="adders-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-plus-square"></i> Adder Configuration</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="addersEnabled" class="checkbox-input"><span class="checkbox-label">Enable Automatic Adders (Hotkey: F1)</span></label></div>
+                        <label for="adders-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Adder List<input type="file" id="adders-fileLoader" class="file-input" accept=".txt"></label>
+                        <div class="file-info" id="adders-loadedWords">No adder list loaded</div>
+                        <div class="status" style="margin-top: 15px;"><div class="status-dot status-offline" id="adders-statusIndicator"></div><span id="adders-statusText">Ready</span></div>
+                        <div class="card-title" style="margin-top: 20px;"><i class="fas fa-cogs"></i> Apply Adders To...</div>
+                        <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <label class="checkbox"><input type="checkbox" id="adderForNormal" class="checkbox-input" checked><span class="checkbox-label">Normal</span></label>
+                            <label class="checkbox"><input type="checkbox" id="adderForAutobeefer" class="checkbox-input"><span class="checkbox-label">AutoBeefer</span></label>
+                            <label class="checkbox"><input type="checkbox" id="adderForKeybind" class="checkbox-input"><span class="checkbox-label">Keybind</span></label>
+                            <label class="checkbox"><input type="checkbox" id="adderForPretype" class="checkbox-input"><span class="checkbox-label">PreTyper</span></label>
+                            <label class="checkbox"><input type="checkbox" id="adderForAntiAfk" class="checkbox-input"><span class="checkbox-label">Anti AFK</span></label>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-text-height"></i> Adder Formatting</div>
+                        <div class="form-group"><div class="slider-label"><span>Words per Message</span><span id="adderLengthValue">1</span></div><input type="range" id="adderLengthSlider" min="1" max="10" step="1" value="1"></div>
+                        <div class="btn-group"><button id="adders-uppercase" data-feature="adders" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="adders-lowercase" data-feature="adders" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                    </div>
+                </div>
+
+                <!-- Pretype Tab -->
+                <div class="tab-content" id="pretype-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-keyboard"></i> Queue Message</div>
+                        <div class="form-group"><label class="form-label">Message (press Enter to queue)</label><textarea id="pretype-entry" class="form-control" placeholder="Type a message and press enter..." style="min-height: 80px;"></textarea></div>
+                        <button id="pretype-clear-queue" class="btn btn-danger btn-block"><i class="fas fa-trash"></i> Clear Current Queue</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-cogs"></i> PreTyper Settings</div>
+                        <div class="form-group"><div class="slider-label"><span>Auto-send at</span><span id="pretypeTriggerCountValue">2</span> messages</div><input type="range" id="pretypeTriggerCountSlider" min="1" max="20" step="1" value="2"></div>
+                        <div class="form-group"><div class="slider-label"><span>Delay Between Messages</span><span id="pretypeMessageDelayValue">0.05</span>s</div><input type="range" id="pretypeMessageDelaySlider" min="0.01" max="1.0" step="0.01" value="0.05"></div>
+                        <div class="btn-group"><button id="pretype-uppercase" data-feature="pretype" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="pretype-lowercase" data-feature="pretype" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="status" style="margin-top: 15px;"><div class="status-dot status-online" id="pretype-statusIndicator"></div><span id="pretype-statusText">Ready to queue messages</span></div>
+                    </div>
+                </div>
+
+                <!-- Ladder Tab -->
+                <div class="tab-content" id="ladder-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-align-left"></i> Ladder Content</div>
+                        <div class="form-group"><label class="form-label">Message (one word/line)</label><textarea id="ladder-message" class="form-control" placeholder="Type your message..."></textarea></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-cogs"></i> Ladder Settings</div>
+                        <div class="form-group"><div class="slider-label"><span>Delay Between Parts</span><span id="ladderDelayValue">0.05</span>s</div><input type="range" id="ladderDelaySlider" min="0.01" max="1" step="0.01" value="0.05"></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="spamLadderMode" class="checkbox-input"><span class="checkbox-label">Enable Spam Ladder Mode</span></label></div>
+                        <div id="spamLengthContainer" style="display: none;"><div class="form-group"><div class="slider-label"><span>Spam Length</span><span id="spamLengthValue">10</span> messages</div><input type="range" id="spamLengthSlider" min="1" max="50" step="1" value="10"></div></div>
+                        <div class="btn-group"><button id="ladder-uppercase" data-feature="ladder" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="ladder-lowercase" data-feature="ladder" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="btn-group"><button id="sendLadderMessage" class="btn btn-success"><i class="fas fa-play"></i> Start / Resume</button><button id="stopLadderMessage" class="btn btn-danger"><i class="fas fa-stop"></i> Stop</button></div>
+                        <div class="status" style="margin-top: 15px;"><div class="status-dot status-offline" id="ladder-statusIndicator"></div><span id="ladder-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- AutoBeefer Tab -->
+                <div class="tab-content" id="autobeefer-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-database"></i> Message Source</div>
+                        <label for="fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Word List<input type="file" id="fileLoader" class="file-input" accept=".txt"></label>
+                        <div class="file-info" id="loadedWords">No word list loaded</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-sliders-h"></i> Message Settings</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="misspellMode" class="checkbox-input" checked><span class="checkbox-label">Misspell Words</span></label></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="punctuationMode" class="checkbox-input" checked><span class="checkbox-label">Add Random Punctuation</span></label></div>
+                        <div class="btn-group"><button id="autobeefer-uppercase" data-feature="autobeefer" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="autobeefer-lowercase" data-feature="autobeefer" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-clock"></i> Timing Settings</div>
+                        <div class="form-group"><div class="slider-label"><span>Delay Between Messages</span><span id="autobeeferDelayValue">0.10</span>s</div><input type="range" id="autobeeferDelaySlider" min="0.01" max="5" step="0.01" value="0.10"></div>
+                        <div class="form-group"><div class="slider-label"><span>Message Length</span><span id="lengthValue">1</span></div><input type="range" id="lengthSlider" min="1" max="10" step="1" value="1"></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="burstMode" class="checkbox-input"><span class="checkbox-label">Enable Burst Mode</span></label></div>
+                        <div id="burstModeContainer" style="display: none;"><div class="form-group"><div class="slider-label"><span>Burst Messages</span><span id="burstMessageCountValue">3</span></div><input type="range" id="burstMessageCountSlider" min="2" max="10" step="1" value="3"></div><div class="form-group"><div class="slider-label"><span>Burst Every (seconds)</span><span id="burstIntervalValue">10</span>s</div><input type="range" id="burstIntervalSlider" min="5" max="30" step="1" value="10"></div></div>
+                        <div class="btn-group"><button id="startSending" class="btn btn-success"><i class="fas fa-play"></i> Start (F2)</button><button id="stopSending" class="btn btn-danger"><i class="fas fa-stop"></i> Stop (F2)</button></div>
+                        <div class="status" style="margin-top: 15px;"><div class="status-dot status-offline" id="status-statusIndicator"></div><span id="status-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- Additional Tab -->
+                <div class="tab-content" id="additional-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-comment-alt"></i> Manual Message</div>
+                        <div class="form-group"><label class="form-label">Message</label><textarea id="additional-message" class="form-control" placeholder="Type your message here..."></textarea></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-database"></i> Additional Messages</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="additionalEnabled" class="checkbox-input"><span class="checkbox-label">Enable Additional Messages (2 manual → 2 auto)</span></label></div>
+                        <label for="additional-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Message List<input type="file" id="additional-fileLoader" class="file-input" accept=".txt"></label>
+                        <div class="file-info" id="additional-loadedWords">No message list loaded</div>
+                        <div class="form-group" style="margin-top: 15px;"><label class="checkbox"><input type="checkbox" id="additional-misspellMode" class="checkbox-input"><span class="checkbox-label">Misspell Words</span></label></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="additional-punctuationMode" class="checkbox-input"><span class="checkbox-label">Add Random Punctuation</span></label></div>
+                        <div class="btn-group"><button id="additional-uppercase" data-feature="additional" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="additional-lowercase" data-feature="additional" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="form-group" style="margin-top: 15px;"><div class="slider-label"><span>Delay Between Additional Messages</span><span id="additionalDelayValue">0.20</span>s</div><input type="range" id="additionalDelaySlider" min="0.05" max="10" step="0.05" value="0.20"></div>
+                        <div class="status"><div class="status-dot status-offline" id="additional-statusIndicator"></div><span id="additional-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- Keybind Tab -->
+                <div class="tab-content" id="keybindsender-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-database"></i> Message Source</div>
+                        <label for="keybindsender-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Message List<input type="file" id="keybindsender-fileLoader" class="file-input" accept=".txt"></label>
+                        <div class="file-info" id="keybindsender-loadedWords">No message list loaded</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-keyboard"></i> Keybind Settings</div>
+                        <div class="form-group"><label class="form-label">Global Hotkey</label><div class="file-info" style="text-align: left; margin-top: -5px; margin-bottom: 10px;">Works only when this tab is active.</div><div class="btn-group"><button id="setKeybind" class="btn btn-outline" style="flex: 2;">Set Key</button><button id="keybind-toggle" class="btn btn-toggle" style="flex: 1;">OFF</button></div></div>
+                        <button id="keybindsender-clear" class="btn btn-danger btn-block"><i class="fas fa-trash"></i> Clear Sent Message History</button>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-sliders-h"></i> Message Settings</div>
+                        <div class="form-group"><div class="slider-label"><span>Message Length</span><span id="keybindLengthValue">1</span></div><input type="range" id="keybindLengthSlider" min="1" max="10" step="1" value="1"></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="keybindsender-misspellMode" class="checkbox-input"><span class="checkbox-label">Misspell Words</span></label></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="keybindsender-punctuationMode" class="checkbox-input"><span class="checkbox-label">Add Random Punctuation</span></label></div>
+                        <div class="btn-group"><button id="keybindsender-uppercase" data-feature="keybindsender" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="keybindsender-lowercase" data-feature="keybindsender" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="status" style="margin-top: 15px;"><div class="status-dot status-offline" id="keybindsender-statusIndicator"></div><span id="keybindsender-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- Anti-AFK Tab -->
+                <div class="tab-content" id="antiafk-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-user-shield"></i> Anti AFK</div>
+                        <div class="form-group"><label class="form-label">Monitor Mode</label><select id="afkMonitorMode" class="form-control"><option value="active">Active Channel</option><option value="dedicated">Dedicated Channel</option></select></div>
+                        <div class="form-group" id="afkDedicatedChannelContainer" style="display: none;"><label class="form-label">Dedicated Channel ID</label><input type="text" id="afkDedicatedChannelId" class="form-control" placeholder="Enter Channel ID to monitor"></div>
+                        <div class="form-group"><label class="form-label">Action</label><select id="afkAction" class="form-control"><option value="send">Send in Channel</option><option value="reply">Reply to Message</option></select></div>
+                        <div class="form-group"><label class="form-label">Primary Responses</label><input type="file" class="file-input" id="afk-primary-fileLoader" accept=".txt"><label for="afk-primary-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Primary List</label><div class="file-info" id="afk-primary-loadedWords">No list loaded</div></div>
+                        <div class="form-group"><label class="form-label">Continuation Responses</label><input type="file" class="file-input" id="afk-continuation-fileLoader" accept=".txt"><label for="afk-continuation-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Continuation List</label><div class="file-info" id="afk-continuation-loadedWords">No list loaded</div></div>
+                        <div class="form-group"><label class="form-label">Follow-up Responses</label><input type="file" class="file-input" id="afk-command-fileLoader" accept=".txt"><label for="afk-command-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Follow-up List</label><div class="file-info" id="afk-command-loadedWords">Sent if counting continues after a reply.</div></div>
+                        <div class="form-group"><label class="form-label">Degrading Responses</label><input type="file" class="file-input" id="afk-degrading-fileLoader" accept=".txt"><label for="afk-degrading-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Degrading List</label><div class="file-info" id="afk-degrading-loadedWords">No list loaded</div></div>
+                        <div class="form-group"><label class="form-label">Fallback Responses</label><input type="file" class="file-input" id="afk-fallback-fileLoader" accept=".txt"><label for="afk-fallback-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Fallback List</label><div class="file-info" id="afk-fallback-loadedWords">No list loaded</div></div>
+                        <div class="sub-card"><div class="card-title" style="font-size: 14px;"><i class="fas fa-user-tag"></i> User Aliases</div><div class="file-info" style="text-align: left; margin-bottom: 10px;">Map User IDs to aliases for [NAME] placeholder.</div><div class="btn-group"><input type="text" id="afkAliasIdInput" class="form-control" placeholder="User ID"><input type="text" id="afkAliasNameInput" class="form-control" placeholder="Alias"><button id="addAfkAliasBtn" class="btn btn-outline" style="flex: 0.5;"><i class="fas fa-plus"></i></button></div><div id="afkAliasList" style="max-height: 100px; overflow-y: auto; margin-top: 10px;"></div></div>
+                        <div class="btn-group" style="margin-top: 20px;"><button id="antiafk-uppercase" data-feature="antiafk" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="antiafk-lowercase" data-feature="antiafk" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="btn-group"><button id="startAntiAfk" class="btn btn-success"><i class="fas fa-play"></i> Start</button><button id="stopAntiAfk" class="btn btn-danger"><i class="fas fa-stop"></i> Stop</button></div>
+                        <div class="status"><div class="status-dot status-offline" id="antiafk-statusIndicator"></div><span id="antiafk-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- AutoPaster Tab -->
+                <div class="tab-content" id="autopaster-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-paste"></i> Message to Paste</div>
+                        <div class="form-group"><label class="form-label">Messages (one per line)</label><textarea id="autopaster-message" class="form-control" placeholder="Enter messages to auto paste, one per line. They will be sent sequentially."></textarea></div>
+                        <div class="form-group"><div class="slider-label"><span>Delay Between Pastes</span><span id="autopasterDelayValue">0.50</span>s</div><input type="range" id="autopasterDelaySlider" min="0.01" max="30" step="0.01" value="0.5"></div>
+                        <div class="btn-group"><button id="autopaster-uppercase" data-feature="autopaster" data-case="uppercase" class="btn btn-toggle">UPPERCASE</button><button id="autopaster-lowercase" data-feature="autopaster" data-case="lowercase" class="btn btn-toggle">lowercase</button></div>
+                        <div class="btn-group" style="margin-top: 15px;"><button id="startAutoPaster" class="btn btn-success"><i class="fas fa-play"></i> Start AutoPaster</button><button id="stopAutoPaster" class="btn btn-danger"><i class="fas fa-stop"></i> Stop AutoPaster</button></div>
+                        <div class="status"><div class="status-dot status-offline" id="autopaster-statusIndicator"></div><span id="autopaster-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- Title Changer Tab -->
+                <div class="tab-content" id="titlechanger-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-heading"></i> Titles List</div>
+                        <div class="file-info" style="text-align: left; margin-bottom: 15px; padding: 10px; border-radius: 5px; background-color: rgba(255, 180, 70, 0.1); color: #ffb570;"><i class="fas fa-exclamation-triangle"></i> <strong>Rate-Limit Warning:</strong> Use with caution.</div>
+                        <div class="form-group"><label class="form-label">Titles (one per line)</label><textarea id="titlechanger-titles" class="form-control" placeholder="Enter titles (one per line)"></textarea></div>
+                        <div class="form-group"><div class="slider-label"><span>Delay Between Changes (Seconds)</span><span id="titlechangerDelayValue">300</span></div><input type="range" id="titlechangerDelaySlider" min="1" max="600" step="1" value="300"></div>
+                        <div class="btn-group" style="margin-top: 15px;"><button id="startTitleChanger" class="btn btn-success"><i class="fas fa-play"></i> Start Title Changer</button><button id="stopTitleChanger" class="btn btn-danger"><i class="fas fa-stop"></i> Stop Title Changer</button></div>
+                        <div class="status"><div class="status-dot status-offline" id="titlechanger-statusIndicator"></div><span id="titlechanger-statusText">Ready</span></div>
+                    </div>
+                </div>
+
+                <!-- WORDLIST GEN TAB -->
+                <div class="tab-content" id="wordlistgen-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-atom"></i> BEEF WORDLIST GENERATOR</div>
+                        <div class="row-duo" style="display: flex; gap: 14px;">
+                            <div class="form-group" style="flex:1">
+                                <label class="form-label">count (1-50)</label>
+                                <input type="number" id="genCount" min="1" max="50" value="5" class="form-control">
+                            </div>
+                            <div class="form-group" style="flex:1">
+                                <label class="form-label">length (3-100)</label>
+                                <input type="number" id="genLength" min="3" max="100" value="5" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-primary" id="generateBtn"><i class="fas fa-bolt"></i> generate</button>
+                            <button class="btn btn-outline" id="copyBtn"><i class="fas fa-copy"></i> copy</button>
+                            <button class="btn btn-outline" id="sendBtn"><i class="fas fa-paper-plane"></i> send</button>
+                        </div>
+
+                        <div class="live-preview-box">
+                            <div class="preview-header">
+                                <span>preview</span>
+                                <span class="word-count-badge" id="wordCountDisplay">0 lines</span>
+                            </div>
+                            <div class="preview-content" id="livePreview">(generated lines will appear here)</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">output (editable)</label>
+                            <textarea id="genOutput" class="form-control" placeholder="Click generate…" style="min-height:200px;"></textarea>
+                        </div>
+
+                        <div class="stats-row">
+                            <span>pool: <strong id="poolSize">100+</strong> words</span>
+                            <span>connector: AND / ASS (12%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stream Tab -->
+                <div class="tab-content" id="stream-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-stream"></i> Multi Stream</div>
+                        <div class="form-group"><label class="form-label">Tokens (one per line)</label><textarea id="multistreamTokens" class="form-control" placeholder="Enter multiple tokens (one per line)"></textarea></div>
+                        <div class="form-group"><label class="form-label">Streaming status text</label><input type="text" id="multistreamStatusText" class="form-control" placeholder="Playing, Streaming text..."></div>
+                        <div class="btn-group"><button id="multistreamStartButton" class="btn btn-success"><i class="fas fa-play"></i> Start</button><button id="multistreamStopButton" class="btn btn-danger"><i class="fas fa-stop"></i> Stop</button></div>
+                        <div id="multistreamStatus" class="status" style="margin-top:12px;"><div class="status-dot status-offline"></div><span id="multistreamStatusTextUI">Idle</span></div>
+                    </div>
+                </div>
+
+                <!-- Options Tab -->
+                <div class="tab-content" id="options-tab">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-text-height"></i> Message Formatting</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="boldFormat" class="checkbox-input"><span class="checkbox-label">Add # to make messages bold</span></label></div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="bulletFormat" class="checkbox-input"><span class="checkbox-label">Add - for bullet points</span></label></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-spell-check"></i> Text Correction</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="autoCorrect" class="checkbox-input"><span class="checkbox-label">Enable Auto-Correct</span></label></div>
+                        <label for="autocorrect-fileLoader" class="file-label"><i class="fas fa-file-upload"></i> Upload Auto-Correct Dictionary<input type="file" id="autocorrect-fileLoader" class="file-input" accept=".txt"></label>
+                        <div class="file-info" id="autocorrect-loadedWords">Format: `misspell > correction`. No dictionary loaded.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-tachometer-alt"></i> Rate Limit Settings</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="smartAntiRateLimit" class="checkbox-input" checked><span class="checkbox-label">Enable Smart Anti-Rate Limit</span></label></div>
+                        <div id="rateLimitSliderContainer"><div class="slider-label"><span>Pause Duration</span><span id="rateLimitDelayValue">5.0</span>s</div><input type="range" id="rateLimitDelaySlider" min="1.0" max="10.0" step="0.5" value="5.0"></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-keyboard"></i> Typing Indicators</div>
+                        <div class="form-group"><label class="checkbox"><input type="checkbox" id="typingIndicators" class="checkbox-input" checked><span class="checkbox-label">Enable Smart Typing Indicators</span></label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="stats-footer">
+            <span><i class="fas fa-chart-simple"></i> lines: <span id="footerCount">0</span></span>
+            <span class="pill"><i class="fas fa-wind"></i> bond · gen</span>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- GLOBAL STATE ----------
+            let accounts = [];
+            let selectedAccountToken = null;
+            let globalChannelId = null;
+            let chatlogSocket = null;
+            let chatlogHeartbeatInterval = null;
+            let isRateLimitedPaused = false;
+            let rateLimitPauseDuration = 5.0;
+            let isTyping = false;
+            let invertEnter = false;
+
+            let caseStates = { normal: {}, ladder: {}, autobeefer: {}, additional: {}, keybindsender: {}, antiafk: {}, autopaster: {}, pretype: {}, adders: {} };
+            Object.keys(caseStates).forEach(k => caseStates[k] = { upper: false, lower: false });
+            let adderApplication = { normal: true, autobeefer: false, keybind: false, antiafk: false, pretype: false };
+            let messages = [], skippedIndexes = new Set(), recentlyUsedWords = [];
+            const RECENT_WORDS_MEMORY = 50;
+            let additionalMessages = [], keybindMessages = [], keybindUsedMessages = [];
+            let delayTime = 0.1, messageLength = 1, fileSending = false, fileSendingInterval;
+            let normalDelayEnabled = false, normalDelayTime = 0.5;
+            let additionalEnabled = false, additionalDelayTime = 0.2;
+            let messageListener = null, heartbeatInterval = null, typingIndicatorsEnabled = true, manualMessageCount = 0, lastAdditionalMessages = [];
+            let globalKeybind = { key: null, active: false }, keybindMessageLength = 1;
+            let addersEnabled = false, adderWords = [], usedAdderWords = [], adderMessageLength = 1;
+            let smartAntiRateLimitEnabled = true, burstModeEnabled = false, burstMessageCount = 3, burstInterval = 10, lastSentAutobeeferIndex = -1;
+            let autopasterEnabled = false, autopasterInterval = null, autopasterDelay = 0.5, autopasterMessages = [], currentAutopasterIndex = 0;
+            let titleChangerEnabled = false, titleChangerInterval = null, titleChangerDelay = 5.0, titleChangerTitles = [], usedTitles = new Set();
+            let boldFormat = false, bulletFormat = false, autoCorrectEnabled = false, messageQueue = [], isProcessingQueue = false, queueTimer = null;
+            const BURST_SEND_INTERVAL = 50, AUTO_BEEFER_BURST_DELAY = 10;
+            let ladderDelay = 0.05, spamLadderMode = false, spamLength = 10, isLadderSending = false, ladderWords = [], currentLadderIndex = 0, ladderInterval = null;
+            let pretypeQueue = [], pretypeTriggerCount = 2, pretypeMessageDelay = 0.05;
+            
+            // Anti-AFK State
+            let antiAfkActive = false;
+            let afkMonitorMode = 'active';
+            let afkDedicatedChannelId = '';
+            let afkAction = 'send';
+            let afkPrimaryResponses = [];
+            let afkContinuationResponses = [];
+            let afkCommandResponses = [];
+            let afkDegradingResponses = [];
+            let afkFallbackResponses = [];
+            let afkUserAliases = {};
+            let persistentUsedResponses = { continuation: [], command: [], degrading: [], fallback: [] };
+            
+            const getInitialAfkSequenceState = () => ({
+                lastNumber: null, lastAuthorId: null, lastTime: 0, lastReplyTime: 0, direction: null,
+                sequenceLength: 0, repliesSent: 0, sequenceBlocked: false,
+                stopAtNumber: Math.floor(Math.random() * 5) + 10, isStopped: false, reEngageTriggered: false
+            });
+            let afkSequenceState = getInitialAfkSequenceState();
+            
+            let correctionsMap = {};
+
+            // ---------- NOTIFICATION ----------
+            function showNotification(message, type = 'info', duration = 3000) {
+                const container = document.getElementById('notification-container');
+                if (!container) return;
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                let iconClass = 'fas fa-info-circle';
+                if (type === 'success') iconClass = 'fas fa-check-circle';
+                if (type === 'warning' || type === 'danger') iconClass = 'fas fa-fire';
+                notification.innerHTML = `<i class="${iconClass}"></i> ${message}`;
+                container.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => { if (container.contains(notification)) container.removeChild(notification); }, 400);
+                }, duration);
+            }
+
+            // --- Helper Functions ---
+            const debounce = (func, delay = 300) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => func.apply(this, a), delay); }; };
+            const correctWord = w => { const u = w.toUpperCase(); if (correctionsMap[u]) { const c = correctionsMap[u]; if (w === u) return c.toUpperCase(); if (w === w.toLowerCase()) return c.toLowerCase(); if (w.length > 1 && w[0] === w[0].toUpperCase() && w.slice(1) === w.slice(1).toLowerCase()) return c.charAt(0).toUpperCase() + c.slice(1).toLowerCase(); return c; } return w; };
+            const applyCorrections = t => (!autoCorrectEnabled || Object.keys(correctionsMap).length === 0) ? t : t.split(/(\s+|[.,!?]+)/).map(p => correctWord(p)).join('');
+            const misspellWord = w => { if (w.length <= 2 || !isNaN(w)) return w; const p = [() => w.slice(0, Math.floor(Math.random() * (w.length - 1))) + w[Math.floor(Math.random() * (w.length - 1))] + w.slice(Math.floor(Math.random() * (w.length - 1))), () => w.length <= 3 ? w : w.slice(0, Math.floor(Math.random() * w.length)) + w.slice(Math.floor(Math.random() * w.length) + 1), () => w.length <= 3 ? w : w.slice(0, Math.floor(Math.random() * (w.length - 1))) + w[Math.floor(Math.random() * (w.length - 1)) + 1] + w[Math.floor(Math.random() * (w.length - 1))] + w.slice(Math.floor(Math.random() * (w.length - 1)) + 2)]; let r = w; for (let i = 0; i < (Math.random() < .3 ? 2 : 1); i++) r = p[Math.floor(Math.random() * p.length)](r); return r; };
+            const addRandomPunctuation = t => { const p = [',', '...', '..', '.']; return t + (p[Math.floor(Math.random() * p.length)]); };
+            const processText = (t, m) => { let mm, pm; if (m === 'autobeefer') { mm = document.getElementById("misspellMode").checked; pm = document.getElementById("punctuationMode").checked; } else if (m === 'additional') { mm = document.getElementById("additional-misspellMode").checked; pm = document.getElementById("additional-punctuationMode").checked; } else if (m === 'keybindsender') { mm = document.getElementById("keybindsender-misspellMode").checked; pm = document.getElementById("keybindsender-punctuationMode").checked; } if (autoCorrectEnabled) mm = false; const w = t.split(/(\s+)/).filter(p => p.trim().length > 0); if (mm) for (let i = 0; i < w.length; i++) if (w[i].trim().length > 0 && !w[i].match(/^[.,!?]+$/) && Math.random() < .15) w[i] = misspellWord(w[i]); let r = w.join(' '); if (pm && Math.random() < .1) r = addRandomPunctuation(r); return r; };
+            const applyFormatting = m => { let p = ''; if (boldFormat) p += '# '; if (bulletFormat) p += '- '; return p + m; };
+            const getUserIdFromToken = t => { try { return atob(t.split('.')[0]); } catch (e) { return null; } };
+            const getGatewayUrl = async t => { try { const r = await fetch(`https://discord.com/api/v9/gateway`, { headers: { 'Authorization': t } }); return r.ok ? (await r.json()).url : null; } catch (e) { return null; } };
+            const updateStatus = (id, text, status) => { const i = document.getElementById(`${id}-statusIndicator`), s = document.getElementById(`${id}-statusText`); if (i && s) { i.className = `status-dot status-${status}`; s.textContent = text; } };
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            // --- Core Messaging ---
+            async function triggerSmartTyping() { if (!typingIndicatorsEnabled || isTyping || !selectedAccountToken || !globalChannelId) return; isTyping = true; try { await fetch(`https://discord.com/api/v9/channels/${globalChannelId}/typing`, { method: 'POST', headers: { 'Authorization': selectedAccountToken, 'Content-Type': 'application/json' } }); } catch (e) { } setTimeout(() => isTyping = false, 8000); }
+            
+            async function sendMessage(message, mode = 'normal', replyToMessageId = null) {
+                const token = selectedAccountToken;
+                const channel = (mode === 'antiafk' && afkMonitorMode === 'dedicated' && afkDedicatedChannelId) ? afkDedicatedChannelId : globalChannelId;
+                if (!token || !channel) return Promise.reject("Missing config");
+                if (isRateLimitedPaused) return { success: false, rateLimited: true }; 
+                
+                triggerSmartTyping();
+
+                let fullMessage = message;
+                const adderModeMap = { 'normal': adderApplication.normal, 'autobeefer': adderApplication.autobeefer, 'keybindsender': adderApplication.keybind, 'antiafk': adderApplication.antiafk, 'pretype': adderApplication.pretype };
+                if (addersEnabled && adderModeMap[mode] && adderWords.length > 0) { 
+                    let a = adderWords.filter(w => !usedAdderWords.includes(w)); 
+                    for (let i = 0; i < adderMessageLength; i++) { 
+                        if (a.length === 0) { usedAdderWords = []; a = adderWords; } 
+                        if (a.length > 0) { 
+                            const x = Math.floor(Math.random() * a.length); 
+                            let d = a[x]; 
+                            usedAdderWords.push(d); 
+                            a.splice(x, 1); 
+                            if (caseStates.adders.upper) d = d.toUpperCase(); 
+                            else if (caseStates.adders.lower) d = d.toLowerCase(); 
+                            fullMessage += ` ${d}`; 
+                        } 
+                    } 
+                }
+                if (['autobeefer', 'additional', 'keybindsender', 'antiafk'].includes(mode)) fullMessage = processText(fullMessage, mode); 
+                fullMessage = applyCorrections(fullMessage);
+                if (caseStates[mode] && caseStates[mode].upper) fullMessage = fullMessage.toUpperCase(); else if (caseStates[mode] && caseStates[mode].lower) fullMessage = fullMessage.toLowerCase();
+                const p = document.getElementById("globalPingUsers").value.trim(); if (p) fullMessage += ` ${p.split(',').map(id => `<@${id.trim()}>`).join(' ')}`;
+                let finalMessage = applyFormatting(fullMessage);
+                
+                const body = { content: finalMessage, allowed_mentions: { parse: [] } };
+                if (replyToMessageId) {
+                    body.message_reference = { message_id: replyToMessageId };
+                    body.allowed_mentions.replied_user = false;
+                }
+                
+                try { 
+                    const r = await fetch(`https://discord.com/api/v9/channels/${channel}/messages`, { 
+                        method: "POST", 
+                        headers: { "Authorization": token, "Content-Type": "application/json" }, 
+                        body: JSON.stringify(body) 
+                    }); 
+                    if (r.ok) return { success: true }; 
+                    if (r.status === 429 && smartAntiRateLimitEnabled) { 
+                        isRateLimitedPaused = true; 
+                        ['status', 'ladder', 'autopaster', 'antiafk', 'pretype'].forEach(s => updateStatus(s, `Rate limited, pausing ${rateLimitPauseDuration}s`, 'warning')); 
+                        setTimeout(() => { 
+                            isRateLimitedPaused = false; 
+                            ['status', 'ladder', 'autopaster', 'antiafk', 'pretype'].forEach(s => updateStatus(s, 'Ready', 'online')); 
+                        }, rateLimitPauseDuration * 1000); 
+                        return { success: false, rateLimited: true }; 
+                    } 
+                    return { success: false }; 
+                } catch (e) { return { success: false }; }
+            }
+
+            // --- Feature Logic ---
+            function handleNormalMessage() { const i = document.getElementById("message"), m = i.value; if (!m.trim()) return; i.value = ""; const t = m.split('\n').filter(s => s.trim().length > 0); if (!normalDelayEnabled) { for (const s of t) sendMessage(s, 'normal'); } else { messageQueue.push(...t); if (!isProcessingQueue && !queueTimer) queueTimer = setTimeout(() => { processMessageQueue(); queueTimer = null; }, normalDelayTime * 1000); } }
+            function processMessageQueue() { if (messageQueue.length === 0) { isProcessingQueue = false; return; } isProcessingQueue = true; let t = setInterval(() => { if (isRateLimitedPaused) return; if (messageQueue.length > 0) sendMessage(messageQueue.shift(), 'normal'); else { clearInterval(t); isProcessingQueue = false; } }, BURST_SEND_INTERVAL); }
+            async function sendPretypeQueue() { if (pretypeQueue.length === 0) return; updateStatus('pretype', `Sending ${pretypeQueue.length} messages...`, 'active'); const m = [...pretypeQueue]; pretypeQueue = []; updateStatus('pretype', `Queued: 0/${pretypeTriggerCount}`, 'online'); for (const s of m) { if (isRateLimitedPaused) break; await sendMessage(s, 'pretype'); await new Promise(r => setTimeout(r, pretypeMessageDelay * 1000)); } if (!isRateLimitedPaused) updateStatus('pretype', 'Ready to queue messages', 'online'); }
+            function startAutoBeefer() { if (messages.length === 0) return showNotification("No words loaded for AutoBeefer!", "warning"); if (fileSending) return; fileSending = true; document.getElementById('startSending').disabled = true; document.getElementById('stopSending').disabled = false; showNotification("AutoBeefer started", "success"); if (burstModeEnabled) { updateStatus('status', "AutoBeefer (Burst Mode) running...", 'active'); const e = async () => { if (!fileSending || isRateLimitedPaused) return; for (let i = 0; i < burstMessageCount; i++) { if (!fileSending || isRateLimitedPaused) break; await sendBeeferMessage(true); await new Promise(r => setTimeout(r, AUTO_BEEFER_BURST_DELAY)); } if (fileSending && !isRateLimitedPaused) updateStatus('status', "AutoBeefer (Burst Mode) running...", 'active'); }; e(); fileSendingInterval = setInterval(e, burstInterval * 1000); } else { updateStatus('status', "AutoBeefer running...", 'active'); const s = async () => { if (!fileSending || isRateLimitedPaused) return; await sendBeeferMessage(false); }; s(); fileSendingInterval = setInterval(s, delayTime * 1000); } }
+            async function sendBeeferMessage(isBurst = false) {
+                let a = messages.filter((m, i) => !skippedIndexes.has(i) && !recentlyUsedWords.includes(m.toLowerCase()));
+                if (lastSentAutobeeferIndex !== -1 && a.length > 1) { const t = a.filter(m => m !== messages[lastSentAutobeeferIndex]); if (t.length > 0) a = t; }
+                if (a.length === 0) { if (skippedIndexes.size >= messages.length) { skippedIndexes.clear(); recentlyUsedWords = []; showNotification("AutoBeefer list recycled. Starting over.", "info"); } a = messages.filter((m, i) => !skippedIndexes.has(i)); }
+                if (a.length === 0) { if (!isBurst) updateStatus('status', "No words available.", 'offline'); stopAutoBeefer(); return; }
+                let s = [];
+                for (let i = 0; i < Math.min(messageLength, a.length); i++) {
+                    let r = Math.floor(Math.random() * a.length), m = a[r], o = messages.indexOf(m);
+                    lastSentAutobeeferIndex = o; skippedIndexes.add(o); recentlyUsedWords.push(m.toLowerCase());
+                    if (recentlyUsedWords.length > RECENT_WORDS_MEMORY) recentlyUsedWords.shift(); s.push(m); a.splice(r, 1);
+                }
+                if (s.length > 0) await sendMessage(s.join(' '), 'autobeefer');
+            }
+            const stopAutoBeefer = () => { if (!fileSending) return; fileSending = false; showNotification("AutoBeefer stopped", "danger"); if (fileSendingInterval) clearInterval(fileSendingInterval); if (!isRateLimitedPaused) updateStatus('status', "Stopped by user", 'online'); document.getElementById('startSending').disabled = false; document.getElementById('stopSending').disabled = true; lastSentAutobeeferIndex = -1; };
+            
+            // --- Accounts ---
+            const updateAccountListUI = t => { const s = document.getElementById('accountSelector'); s.innerHTML = ''; if (accounts.length === 0) { const o = document.createElement('option'); o.textContent = "No accounts added"; o.disabled = true; s.appendChild(o); selectedAccountToken = null; return; } accounts.forEach(a => { const o = document.createElement('option'); o.value = a.token; o.textContent = a.alias; s.appendChild(o); }); if (t && accounts.some(a => a.token === t)) s.value = t; else if (accounts.length > 0) s.value = accounts[0].token; selectedAccountToken = s.value; localStorage.setItem('selectedAccountToken', selectedAccountToken); };
+            const addAccount = () => { const a = document.getElementById('accountAlias').value.trim(), t = document.getElementById('newAccountToken').value.trim(); if (!a || !t) return showNotification("Alias and Token are required.", "warning"); if (accounts.some(c => c.token === t || c.alias === a)) return showNotification("Account with this alias or token already exists.", "warning"); showNotification(`Account '${a}' added.`, "success"); accounts.push({ alias: a, token: t }); localStorage.setItem('accounts', JSON.stringify(accounts)); updateAccountListUI(t); document.getElementById('accountAlias').value = ''; document.getElementById('newAccountToken').value = ''; };
+            const removeSelectedAccount = () => { if (!selectedAccountToken) return showNotification("No account selected.", "warning"); const alias = accounts.find(a => a.token === selectedAccountToken)?.alias || 'selected'; showNotification(`Account '${alias}' removed.`, "danger"); accounts = accounts.filter(a => a.token !== selectedAccountToken); localStorage.setItem('accounts', JSON.stringify(accounts)); updateAccountListUI(accounts.length > 0 ? accounts[0].token : null); };
+            const viewSelectedToken = () => { if (!selectedAccountToken) return showNotification("No account selected.", "warning"); alert(`Token for selected account:\n\n${selectedAccountToken}`); };
+            const switchAccount = e => { selectedAccountToken = e.target.value; localStorage.setItem('selectedAccountToken', selectedAccountToken); startChatlog(); };
+            
+            // --- Chatlog ---
+            const stopChatlog = () => { if (chatlogSocket) { chatlogSocket.onclose = null; chatlogSocket.close(); } if (chatlogHeartbeatInterval) clearInterval(chatlogHeartbeatInterval); chatlogSocket = null; chatlogHeartbeatInterval = null; };
+            async function startChatlog() { stopChatlog(); const t = selectedAccountToken, c = globalChannelId, d = document.getElementById('chatlog'), s = document.getElementById('chatlogStatus'); if (!t || !c) { s.textContent = "Select account & enter Channel ID."; s.style.display = 'block'; d.innerHTML = ''; return; } try { const u = await getGatewayUrl(t); if (!u) { s.textContent = "Failed to connect. Invalid token?"; s.style.display = 'block'; return; } s.textContent = "Connecting..."; s.style.display = 'block'; chatlogSocket = new WebSocket(`${u}?v=9&encoding=json`); chatlogSocket.onopen = () => { chatlogSocket.send(JSON.stringify({ op: 2, d: { token: t, properties: { os: 'windows', browser: 'chrome', device: 'pc' } } })); s.textContent = `Connected to channel ${c}.`; }; chatlogSocket.onmessage = e => { const a = JSON.parse(e.data); if (a.op === 10) { if (chatlogHeartbeatInterval) clearInterval(chatlogHeartbeatInterval); chatlogHeartbeatInterval = setInterval(() => { if (chatlogSocket && chatlogSocket.readyState === WebSocket.OPEN) chatlogSocket.send(JSON.stringify({ op: 1, d: null })); }, a.d.heartbeat_interval); } if (a.t === 'MESSAGE_CREATE' && a.d.channel_id === c) { if (s.style.display !== 'none') s.style.display = 'none'; const m = a.d, e = document.createElement('div'); e.className = 'chat-message'; const av = m.author.avatar ? `https://cdn.discordapp.com/avatars/${m.author.id}/${m.author.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${parseInt(m.author.discriminator) % 5}.png`; const dn = m.member && m.member.nick ? m.member.nick : m.author.global_name || m.author.username; const ts = new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); const sc = m.content.replace(/</g, "&lt;").replace(/>/g, "&gt;"); e.innerHTML = `<img src="${av}" alt="avatar" class="chat-avatar"><div class="chat-message-content"><div class="chat-message-header"><span class="chat-display-name">${dn}</span><span class="chat-username">${m.author.username}#${m.author.discriminator}</span><span class="chat-timestamp">${ts}</span></div><div class="chat-message-body">${sc}</div></div>`; d.prepend(e); } }; chatlogSocket.onclose = () => { s.textContent = "Connection closed."; s.style.display = 'block'; if (chatlogHeartbeatInterval) clearInterval(chatlogHeartbeatInterval); }; } catch (e) { s.textContent = "Connection error."; } }
+            
+            const addToPretypeQueue = () => { const e = document.getElementById('pretype-entry'), m = e.value.trim(); if (!m) return; pretypeQueue.push(m); e.value = ''; updateStatus('pretype', `Queued: ${pretypeQueue.length}/${pretypeTriggerCount}`, 'online'); if (pretypeQueue.length >= pretypeTriggerCount) sendPretypeQueue(); };
+            function sendLadderMessage() { if (isLadderSending) return; const m = document.getElementById("ladder-message").value.trim(); if (!m) return; if (currentLadderIndex === 0) { if (spamLadderMode) { const l = m.split('\n').filter(i => i.trim()); if (l.length < 2) return updateStatus('ladder', "Need 2+ lines for spam ladder", 'offline'); const s = parseInt(document.getElementById('spamLengthSlider').value), p = Array(s).fill(l[0].trim()), a = l.slice(1).join('\n').split(/\s+/).filter(w => w.trim()); ladderWords = [...p, ...a]; } else { ladderWords = m.split(/\s+/).filter(w => w.trim()); } } if (ladderWords.length === 0 || !selectedAccountToken || !globalChannelId) return updateStatus('ladder', "Missing config or message", 'offline'); isLadderSending = true; document.getElementById('sendLadderMessage').disabled = true; document.getElementById('stopLadderMessage').disabled = false; updateStatus('ladder', `${currentLadderIndex > 0 ? 'Resuming' : 'Sending'}...`, 'active'); ladderInterval = setInterval(() => { if (isRateLimitedPaused) return; if (!isLadderSending || currentLadderIndex >= ladderWords.length) { stopLadderMessage(); if (currentLadderIndex >= ladderWords.length) { updateStatus('ladder', "Finished", 'online'); currentLadderIndex = 0; ladderWords = []; } return; } sendMessage(ladderWords[currentLadderIndex], 'ladder'); updateStatus('ladder', `Sending... (${currentLadderIndex + 1}/${ladderWords.length})`, 'active'); currentLadderIndex++; }, ladderDelay * 1000); }
+            function stopLadderMessage() { isLadderSending = false; if (ladderInterval) clearInterval(ladderInterval); ladderInterval = null; document.getElementById('sendLadderMessage').disabled = false; document.getElementById('stopLadderMessage').disabled = true; if (!isRateLimitedPaused) updateStatus('ladder', currentLadderIndex > 0 && currentLadderIndex < ladderWords.length ? `Paused at ${currentLadderIndex}/${ladderWords.length}` : "Ready", 'online'); }
+            async function sendAdditionalMessage() { const i = document.getElementById("additional-message"), m = i.value.trim(); if (!m) return; i.value = ''; await sendMessage(m, 'additional'); manualMessageCount++; if (manualMessageCount >= 2 && additionalEnabled && additionalMessages.length > 0) { manualMessageCount = 0; await sendRandomAdditionalMessages(); } }
+            async function sendRandomAdditionalMessages() { if (additionalMessages.length < 2) return updateStatus('additional', "Need 2+ messages", 'offline'); let a = additionalMessages.filter(m => !lastAdditionalMessages.includes(m.toLowerCase())); if (a.length < 2) { lastAdditionalMessages = []; a = additionalMessages; } let m1 = a[Math.floor(Math.random() * a.length)]; let a2 = a.filter(m => m.toLowerCase() !== m1.toLowerCase()); if (a2.length === 0) a2 = additionalMessages.filter(m => m.toLowerCase() !== m1.toLowerCase()); let m2 = a2[Math.floor(Math.random() * a2.length)]; lastAdditionalMessages.push(m1.toLowerCase(), m2.toLowerCase()); if (lastAdditionalMessages.length > 10) lastAdditionalMessages = lastAdditionalMessages.slice(-10); updateStatus('additional', "Sending...", 'active'); await sendMessage(m1, 'additional'); await new Promise(r => setTimeout(r, additionalDelayTime * 1000)); await sendMessage(m2, 'additional'); updateStatus('additional', "Sent.", 'online'); }
+            function startAutoPaster() { autopasterMessages = document.getElementById("autopaster-message").value.trim().split('\n').filter(Boolean); if (!selectedAccountToken || !globalChannelId || autopasterMessages.length === 0) return showNotification("Missing config or messages for AutoPaster", "warning"); stopAutoPaster(); autopasterEnabled = true; document.getElementById('startAutoPaster').disabled = true; document.getElementById('stopAutoPaster').disabled = false; updateStatus('autopaster', "Running...", 'active'); showNotification("AutoPaster started", "success"); const sendNext = () => { if (isRateLimitedPaused || !autopasterEnabled) return; const m = autopasterMessages[currentAutopasterIndex]; sendMessage(m, 'autopaster'); updateStatus('autopaster', `Sent ${currentAutopasterIndex + 1}/${autopasterMessages.length}`, 'active'); currentAutopasterIndex++; if (currentAutopasterIndex >= autopasterMessages.length) currentAutopasterIndex = 0; }; sendNext(); autopasterInterval = setInterval(sendNext, autopasterDelay * 1000); }
+            function stopAutoPaster() { if (!autopasterEnabled) return; autopasterEnabled = false; showNotification("AutoPaster stopped", "danger"); if (autopasterInterval) clearInterval(autopasterInterval); autopasterInterval = null; currentAutopasterIndex = 0; document.getElementById('startAutoPaster').disabled = false; document.getElementById('stopAutoPaster').disabled = true; if (!isRateLimitedPaused) updateStatus('autopaster', "Stopped", 'online'); }
+            async function changeTitle(t, c) { if (titleChangerTitles.length === 0) return; if (usedTitles.size >= titleChangerTitles.length) usedTitles.clear(); let a = titleChangerTitles.filter(ti => !usedTitles.has(ti)); if (a.length === 0) { a = titleChangerTitles; usedTitles.clear(); } const n = a[Math.floor(Math.random() * a.length)]; usedTitles.add(n); try { const r = await fetch(`https://discord.com/api/v9/channels/${c}`, { method: "PATCH", headers: { "Authorization": t, "Content-Type": "application/json" }, body: JSON.stringify({ name: n }) }); if (r.ok) updateStatus('titlechanger', `Changed to: ${n}`, 'active'); else throw new Error(); } catch (e) { updateStatus('titlechanger', "Failed to change title", 'offline'); stopTitleChanger(); } }
+            async function startTitleChanger() { titleChangerTitles = document.getElementById('titlechanger-titles').value.split('\n').filter(Boolean); if (!selectedAccountToken || !globalChannelId || titleChangerTitles.length === 0) return showNotification("Missing config or titles for Title Changer", "warning"); stopTitleChanger(); titleChangerEnabled = true; usedTitles.clear(); document.getElementById('startTitleChanger').disabled = true; document.getElementById('stopTitleChanger').disabled = false; updateStatus('titlechanger', "Running...", 'active'); showNotification("Title Changer started", "success"); await changeTitle(selectedAccountToken, globalChannelId); titleChangerInterval = setInterval(async () => { if (titleChangerEnabled) await changeTitle(selectedAccountToken, globalChannelId); }, titleChangerDelay * 1000); }
+            function stopTitleChanger() { if (!titleChangerEnabled) return; titleChangerEnabled = false; showNotification("Title Changer stopped", "danger"); if (titleChangerInterval) clearInterval(titleChangerInterval); titleChangerInterval = null; document.getElementById('startTitleChanger').disabled = false; document.getElementById('stopTitleChanger').disabled = true; updateStatus('titlechanger', "Stopped", 'online'); }
+            function setKeybind() { const b = document.getElementById(`setKeybind`); b.textContent = "Press any key..."; b.disabled = true; const kL = (e) => { e.preventDefault(); if (['Control', 'Shift', 'Alt', 'Meta'].includes(e.key)) return; globalKeybind.key = e.key; b.textContent = e.key; b.disabled = false; localStorage.setItem('globalKeybind', JSON.stringify(globalKeybind)); document.removeEventListener('keydown', kL, true); }; document.addEventListener('keydown', kL, { capture: true, once: true }); }
+            function toggleKeybind() { globalKeybind.active = !globalKeybind.active; const b = document.getElementById(`keybind-toggle`); b.textContent = globalKeybind.active ? "ON" : "OFF"; b.classList.toggle('active', globalKeybind.active); localStorage.setItem('globalKeybind', JSON.stringify(globalKeybind)); showNotification(`Keybinds ${globalKeybind.active ? "Enabled" : "Disabled"}`, globalKeybind.active ? "success" : "danger"); }
+            function updateKeybindUI() { document.getElementById(`setKeybind`).textContent = globalKeybind.key || 'Set Key'; const b = document.getElementById(`keybind-toggle`); b.textContent = globalKeybind.active ? 'ON' : 'OFF'; b.classList.toggle('active', globalKeybind.active); }
+
+            // --- Anti-AFK Functions ---
+            function renderAfkAliasList() {
+                const listContainer = document.getElementById('afkAliasList');
+                if (!listContainer) return;
+                listContainer.innerHTML = '';
+                for (const userId in afkUserAliases) {
+                    const item = document.createElement('div');
+                    item.className = 'alias-item';
+                    item.innerHTML = `<span><strong>${afkUserAliases[userId]}</strong> (${userId})</span> <button data-userid="${userId}">&times;</button>`;
+                    listContainer.appendChild(item);
+                }
+                listContainer.querySelectorAll('button').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const userIdToRemove = e.currentTarget.dataset.userid;
+                        delete afkUserAliases[userIdToRemove];
+                        localStorage.setItem('afkUserAliases', JSON.stringify(afkUserAliases));
+                        renderAfkAliasList();
+                    });
+                });
+            }
+            
+            function addAfkAlias() {
+                const idInput = document.getElementById('afkAliasIdInput');
+                const nameInput = document.getElementById('afkAliasNameInput');
+                const userId = idInput.value.trim();
+                const alias = nameInput.value.trim();
+                if (!/^\d+$/.test(userId) || !alias) { showNotification("Invalid User ID or Alias.", "warning"); return; }
+                afkUserAliases[userId] = alias;
+                localStorage.setItem('afkUserAliases', JSON.stringify(afkUserAliases));
+                renderAfkAliasList();
+                idInput.value = ''; nameInput.value = '';
+            }
+
+            function parseNumber(text) {
+                if (text.startsWith('http') || (text.includes('.') && text.includes('/'))) return null;
+                if (text.trim().includes(' ')) return null;
+                const plainNumMatch = text.match(/^\s*(\d+)\s*$/);
+                if (plainNumMatch) return parseInt(plainNumMatch[1], 10);
+                const cleanedText = text.toLowerCase().replace(/[^a-z]/g, '');
+                if (!cleanedText) return null;
+                const fuzzyMatch = (input, word) => { let wordIndex = 0; for (let i = 0; i < input.length; i++) { if (input[i] === word[wordIndex]) wordIndex++; if (wordIndex === word.length) return true; } return false; };
+                const numberWords = { 'eleven': 11, 'twelve': 12, 'three': 3, 'seven': 7, 'eight': 8, 'four': 4, 'five': 5, 'nine': 9, 'zero': 0, 'one': 1, 'two': 2, 'six': 6, 'ten': 10 };
+                let potentialMatches = [];
+                for (const word in numberWords) { if (fuzzyMatch(cleanedText, word)) { if (cleanedText.length < (word.length * 4) + 2) potentialMatches.push(word); } }
+                if (potentialMatches.length > 0) { const bestMatch = potentialMatches.reduce((a, b) => a.length > b.length ? a : b); return numberWords[bestMatch]; }
+                return null;
+            }
+
+            async function triggerAfkReply(messageData, currentCount) {
+                if (afkSequenceState.sequenceBlocked) return;
+                afkSequenceState.lastReplyTime = Date.now();
+                try {
+                    const randomTypingDelay = Math.floor(Math.random() * 400) + 300;
+                    updateStatus('antiafk', `Typing...`, 'active');
+                    await sleep(randomTypingDelay);
+                    if (!antiAfkActive) return;
+                    const authorId = messageData.author.id;
+                    let responseMessage = '';
+                    while (responseMessage === '' && !afkSequenceState.sequenceBlocked) {
+                        const tier = afkSequenceState.repliesSent;
+                        let listToUse = null, listName = '', sourceList = null;
+                        if (tier === 0 && afkPrimaryResponses.length > 0) { listToUse = afkPrimaryResponses; listName = 'primary'; } 
+                        else if (tier === 1 && afkContinuationResponses.length > 0) { sourceList = afkContinuationResponses; listName = 'continuation'; } 
+                        else if (tier === 2 && afkCommandResponses.length > 0) { sourceList = afkCommandResponses; listName = 'command'; }
+                        else if (tier === 3 && afkDegradingResponses.length > 0) { sourceList = afkDegradingResponses; listName = 'degrading'; }
+                        else if (tier >= 4 && afkFallbackResponses.length > 0) { sourceList = afkFallbackResponses; listName = 'fallback'; }
+                        if (sourceList) {
+                            listToUse = sourceList.filter(m => !persistentUsedResponses[listName].includes(m));
+                            if(listToUse.length === 0 && sourceList.length > 0) {
+                                showNotification(`Recycling ${listName} responses.`, 'info');
+                                persistentUsedResponses[listName] = [];
+                                listToUse = sourceList;
+                            }
+                        }
+                        if (listToUse && listToUse.length > 0) {
+                            responseMessage = listToUse[Math.floor(Math.random() * listToUse.length)];
+                            if (listName !== 'primary') persistentUsedResponses[listName].push(responseMessage);
+                        } else { afkSequenceState.repliesSent++; if (afkSequenceState.repliesSent > 4) afkSequenceState.sequenceBlocked = true; }
+                    }
+                    if (responseMessage) {
+                        afkSequenceState.repliesSent++;
+                        const alias = afkUserAliases[authorId] || messageData.author.global_name || messageData.author.username;
+                        responseMessage = responseMessage.replace(/\[NAME\]/gi, alias).replace(/\[WORD\]/gi, currentCount.toString());
+                        updateStatus('antiafk', `Replying... (Tier ${afkSequenceState.repliesSent})`, 'active');
+                        await sendMessage(responseMessage, 'antiafk', afkAction === 'reply' ? messageData.id : null);
+                        updateStatus('antiafk', `Replied at count ${currentCount}.`, 'active');
+                    } else { updateStatus('antiafk', `All responses used.`, 'active'); }
+                } catch (e) {}
+            }
+            
+            async function processAfkCheck(messageData) {
+                const authorId = messageData.author.id;
+                const content = messageData.content.trim();
+                const now = Date.now();
+                const selfUserId = getUserIdFromToken(selectedAccountToken);
+                const SEQUENCE_TIMEOUT = 15000, MIN_SEQUENCE_FOR_REPLY = 2, REPLY_COOLDOWN = Math.floor(Math.random() * 1000) + 1200;
+                const mentionRegex = new RegExp(`^<@!?${selfUserId}>`);
+                if (mentionRegex.test(content)) {
+                    afkSequenceState = getInitialAfkSequenceState();
+                    const commandPhrase = content.replace(mentionRegex, '').trim();
+                    if (commandPhrase) {
+                        let responseMessage = '', listToUse = null;
+                        const isDegrading = afkDegradingResponses.some(word => new RegExp(`\\b${word}\\b`, 'i').test(commandPhrase));
+                        if (isDegrading && afkDegradingResponses.length > 0) listToUse = afkDegradingResponses;
+                        else if (afkCommandResponses.length > 0) listToUse = afkCommandResponses;
+                        if (listToUse) {
+                            responseMessage = listToUse[Math.floor(Math.random() * listToUse.length)];
+                            const alias = afkUserAliases[authorId] || messageData.author.global_name || messageData.author.username;
+                            responseMessage = responseMessage.replace(/\[NAME\]/gi, alias).replace(/\[WORD\]/gi, commandPhrase);
+                            await sendMessage(responseMessage, 'antiafk', afkAction === 'reply' ? messageData.id : null);
+                            updateStatus('antiafk', `Replied to command.`, 'active');
+                        }
+                    }
+                    return;
+                }
+                const number = parseNumber(content);
+                if (number !== null) {
+                    const sequenceTimedOut = now - afkSequenceState.lastTime > SEQUENCE_TIMEOUT;
+                    const isSameAuthor = authorId === afkSequenceState.lastAuthorId;
+                    if (sequenceTimedOut || !isSameAuthor || afkSequenceState.lastNumber === null) {
+                        afkSequenceState = getInitialAfkSequenceState();
+                        afkSequenceState.lastNumber = number; afkSequenceState.lastAuthorId = authorId; afkSequenceState.lastTime = now; afkSequenceState.sequenceLength = 1;
+                    } else {
+                        if (afkSequenceState.direction === null) {
+                            if (number === afkSequenceState.lastNumber + 1) afkSequenceState.direction = 'asc';
+                            else if (number === afkSequenceState.lastNumber - 1) afkSequenceState.direction = 'desc';
+                        }
+                        const isContinuingSequence = (afkSequenceState.direction === 'asc' && number === afkSequenceState.lastNumber + 1) || (afkSequenceState.direction === 'desc' && number === afkSequenceState.lastNumber - 1);
+                        if (isContinuingSequence) {
+                            afkSequenceState.lastNumber = number; afkSequenceState.lastTime = now; afkSequenceState.sequenceLength++;
+                            const isLongEnough = afkSequenceState.sequenceLength >= MIN_SEQUENCE_FOR_REPLY;
+                            const isCooldownOver = (now - afkSequenceState.lastReplyTime) > REPLY_COOLDOWN;
+                            if (isLongEnough && isCooldownOver && !afkSequenceState.isStopped) {
+                                if (number < afkSequenceState.stopAtNumber) { await triggerAfkReply(messageData, number); }
+                                else { afkSequenceState.isStopped = true; updateStatus('antiafk', `Monitoring silently...`, 'active'); }
+                            }
+                            if (afkSequenceState.isStopped && !afkSequenceState.reEngageTriggered) {
+                                const reEngagePoint = afkSequenceState.stopAtNumber + (Math.floor(Math.random() * 3) + 3);
+                                if (number >= reEngagePoint) { afkSequenceState.reEngageTriggered = true; updateStatus('antiafk', `Re-engaging...`, 'warning'); await triggerAfkReply(messageData, number); }
+                            }
+                        } else {
+                            afkSequenceState = getInitialAfkSequenceState();
+                            afkSequenceState.lastNumber = number; afkSequenceState.lastAuthorId = authorId; afkSequenceState.lastTime = now; afkSequenceState.sequenceLength = 1;
+                        }
+                    }
+                } else { if (now - afkSequenceState.lastTime > SEQUENCE_TIMEOUT) afkSequenceState = getInitialAfkSequenceState(); }
+            }
+
+            async function startAntiAfk() {
+                const token = selectedAccountToken;
+                const channel = (afkMonitorMode === 'dedicated' && afkDedicatedChannelId) ? afkDedicatedChannelId : globalChannelId;
+                const hasResponses = afkPrimaryResponses.length > 0 || afkContinuationResponses.length > 0 || afkCommandResponses.length > 0 || afkDegradingResponses.length > 0 || afkFallbackResponses.length > 0;
+                if (!token || !channel) return showNotification("Missing token or target channel for Anti-AFK", "warning");
+                if (!hasResponses) return showNotification("At least one response list is required for Anti-AFK", "warning");
+                stopAntiAfk(true);
+                antiAfkActive = true;
+                afkSequenceState = getInitialAfkSequenceState();
+                updateStatus('antiafk', "Running...", 'active');
+                showNotification("Anti-AFK Started", "success");
+                document.getElementById('startAntiAfk').disabled = true;
+                document.getElementById('stopAntiAfk').disabled = false;
+                const u = getUserIdFromToken(token);
+                if (!u) return showNotification("Invalid token", "danger");
+                try {
+                    const g = await getGatewayUrl(token);
+                    if (!g) return updateStatus('antiafk', "Gateway connection failed", 'offline');
+                    messageListener = new WebSocket(`${g}?v=9&encoding=json`);
+                    messageListener.onopen = () => messageListener.send(JSON.stringify({ op: 2, d: { token: token, properties: { os: 'windows', browser: 'chrome', device: 'pc' } } }));
+                    messageListener.onmessage = async e => {
+                        if (!antiAfkActive || isRateLimitedPaused) return;
+                        const d = JSON.parse(e.data);
+                        if (d.op === 10) { if (heartbeatInterval) clearInterval(heartbeatInterval); heartbeatInterval = setInterval(() => { if (messageListener && messageListener.readyState === WebSocket.OPEN) messageListener.send(JSON.stringify({ op: 1, d: null })); }, d.d.heartbeat_interval); }
+                        const whitelist = [];
+                        if (d.t === 'MESSAGE_CREATE' && d.d.channel_id === channel) {
+                            const m = d.d;
+                            if (m.author.id === u || whitelist.includes(m.author.id)) return;
+                            if (m.content) await processAfkCheck(m);
+                        }
+                    };
+                    messageListener.onclose = () => { if (antiAfkActive) { updateStatus('antiafk', "Connection lost, reconnecting...", 'active'); setTimeout(startAntiAfk, 5000); } };
+                    messageListener.onerror = () => updateStatus('antiafk', "Connection error.", 'offline');
+                } catch (e) { updateStatus('antiafk', "Error starting", 'offline'); if (antiAfkActive) setTimeout(startAntiAfk, 5000); }
+            }
+
+            function stopAntiAfk(isRestarting = false) {
+                if (!antiAfkActive) return;
+                antiAfkActive = false;
+                if(!isRestarting) showNotification("Anti-AFK Stopped", "danger");
+                if (messageListener) { messageListener.onclose = null; messageListener.close(); }
+                if (heartbeatInterval) clearInterval(heartbeatInterval);
+                messageListener = null; heartbeatInterval = null;
+                afkSequenceState = getInitialAfkSequenceState();
+                updateStatus('antiafk', "Stopped", 'online');
+                document.getElementById('startAntiAfk').disabled = false;
+                document.getElementById('stopAntiAfk').disabled = true;
+            }
+            
+            // ---------- LOAD / SAVE ----------
+            function loadSavedData() {
+                accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+                globalKeybind = JSON.parse(localStorage.getItem('globalKeybind')) || { key: null, active: false };
+                updateKeybindUI();
+                pretypeQueue = []; updateStatus('pretype', 'Ready', 'online');
+                globalChannelId = localStorage.getItem('globalChannelId') || '';
+                document.getElementById('globalChannelId').value = globalChannelId;
+                const storedAliases = localStorage.getItem('afkUserAliases');
+                afkUserAliases = storedAliases ? JSON.parse(storedAliases) : {};
+                renderAfkAliasList();
+                const lt = localStorage.getItem('selectedAccountToken');
+                updateAccountListUI(lt);
+                if (globalChannelId && lt) setTimeout(startChatlog, 500);
+                const s = 'input[type="text"]:not(#accountAlias):not(#newAccountToken):not(#afkAliasIdInput):not(#afkAliasNameInput),textarea,input[type="range"],input[type="checkbox"],select:not(#accountSelector)';
+                document.querySelectorAll(s).forEach(e => { const v = localStorage.getItem(e.id); if (v !== null) { if (e.type === 'checkbox') e.checked = (v === 'true'); else e.value = v; e.dispatchEvent(new Event('change', { bubbles: true })); if (e.type === 'range') e.dispatchEvent(new Event('input', { bubbles: true })); } });
+                const sm = localStorage.getItem('messages'); if (sm) { messages = JSON.parse(sm); document.getElementById("loadedWords").innerText = `Loaded: ${messages.length} words`; }
+                const sa = localStorage.getItem('additionalMessages'); if (sa) { additionalMessages = JSON.parse(sa); document.getElementById("additional-loadedWords").innerText = `Loaded: ${additionalMessages.length} msgs`; }
+                const sk = localStorage.getItem('keybindMessages'); if (sk) { keybindMessages = JSON.parse(sk); document.getElementById("keybindsender-loadedWords").innerText = `Loaded: ${keybindMessages.length} msgs`; }
+                const sw = localStorage.getItem('adderWords'); if (sw) { adderWords = JSON.parse(sw); document.getElementById("adders-loadedWords").innerText = `Loaded: ${adderWords.length} adders`; }
+                const sc = localStorage.getItem('correctionsMap'); if (sc) { correctionsMap = JSON.parse(sc); document.getElementById('autocorrect-loadedWords').textContent = `Loaded ${Object.keys(correctionsMap).length} corrections.`; }
+                const ap = localStorage.getItem('afkPrimaryResponses'); if (ap) { afkPrimaryResponses = JSON.parse(ap); document.getElementById("afk-primary-loadedWords").innerText = `Loaded: ${afkPrimaryResponses.length} msgs`; }
+                const ac = localStorage.getItem('afkContinuationResponses'); if (ac) { afkContinuationResponses = JSON.parse(ac); document.getElementById("afk-continuation-loadedWords").innerText = `Loaded: ${afkContinuationResponses.length} msgs`; persistentUsedResponses.continuation = []; }
+                const ad = localStorage.getItem('afkCommandResponses'); if (ad) { afkCommandResponses = JSON.parse(ad); document.getElementById("afk-command-loadedWords").innerText = `Loaded: ${afkCommandResponses.length} msgs.`; persistentUsedResponses.command = []; }
+                const ag = localStorage.getItem('afkDegradingResponses'); if (ag) { afkDegradingResponses = JSON.parse(ag); document.getElementById("afk-degrading-loadedWords").innerText = `Loaded: ${afkDegradingResponses.length} msgs`; persistentUsedResponses.degrading = []; }
+                const af = localStorage.getItem('afkFallbackResponses'); if (af) { afkFallbackResponses = JSON.parse(af); document.getElementById("afk-fallback-loadedWords").innerText = `Loaded: ${afkFallbackResponses.length} msgs`; persistentUsedResponses.fallback = []; }
+                const ae = localStorage.getItem('addersEnabled') === 'true'; updateStatus('adders', ae ? 'Enabled' : 'Disabled', ae ? 'online' : 'offline');
+            }
+            
+            function setupInputSaving() {
+                const ds = debounce((k, v) => localStorage.setItem(k, v));
+                document.getElementById('globalChannelId').addEventListener('change', () => { globalChannelId = document.getElementById('globalChannelId').value.trim(); localStorage.setItem('globalChannelId', globalChannelId); startChatlog(); });
+                document.querySelectorAll('input[type="text"]:not(#accountAlias):not(#newAccountToken):not(#afkAliasIdInput):not(#afkAliasNameInput),textarea').forEach(i => i.addEventListener('input', function () { ds(this.id, this.value); }));
+                document.querySelectorAll('input[type="range"]').forEach(i => {
+                    i.addEventListener('input', function () { ds(this.id, this.value); const d = document.getElementById(this.id.replace('Slider', 'Value')); if (d) d.textContent = this.step.includes('.') ? parseFloat(this.value).toFixed(2) : this.value; });
+                    i.addEventListener('change', function () {
+                        const v = this.value, p = parseFloat(v), i = parseInt(v);
+                        const a = {
+                            delaySlider: () => normalDelayTime = p, ladderDelaySlider: () => ladderDelay = p, spamLengthSlider: () => spamLength = i, autobeeferDelaySlider: () => delayTime = p, lengthSlider: () => messageLength = i,
+                            adderLengthSlider: () => adderMessageLength = i, keybindLengthSlider: () => keybindMessageLength = i, additionalDelaySlider: () => additionalDelayTime = p, autopasterDelaySlider: () => autopasterDelay = p,
+                            titlechangerDelaySlider: () => titleChangerDelay = p, burstMessageCountSlider: () => burstMessageCount = i, burstIntervalSlider: () => burstInterval = i, rateLimitDelaySlider: () => rateLimitPauseDuration = p,
+                            pretypeTriggerCountSlider: () => { pretypeTriggerCount = i; updateStatus('pretype', `Queued: ${pretypeQueue.length}/${pretypeTriggerCount}`, 'online'); }, pretypeMessageDelaySlider: () => pretypeMessageDelay = p,
+                        }; if (a[this.id]) a[this.id]();
+                    });
+                });
+                document.querySelectorAll('input[type="checkbox"]').forEach(c => {
+                    c.addEventListener('change', function () {
+                        localStorage.setItem(this.id, this.checked);
+                        const a = { enableDelay: () => document.getElementById("delaySliderContainer").style.display = this.checked ? "block" : "none", spamLadderMode: () => document.getElementById("spamLengthContainer").style.display = this.checked ? "block" : "none", burstMode: () => document.getElementById("burstModeContainer").style.display = this.checked ? "block" : "none", smartAntiRateLimit: () => document.getElementById('rateLimitSliderContainer').style.display = this.checked ? 'block' : 'none' };
+                        if (a[this.id]) a[this.id]();
+                        const f = { enableDelay: v => normalDelayEnabled = v, spamLadderMode: v => spamLadderMode = v, additionalEnabled: v => additionalEnabled = v, addersEnabled: v => addersEnabled = v, burstMode: v => burstModeEnabled = v, smartAntiRateLimit: v => smartAntiRateLimitEnabled = v, boldFormat: v => boldFormat = v, bulletFormat: v => bulletFormat = v, typingIndicators: v => typingIndicatorsEnabled = v, autoCorrect: v => autoCorrectEnabled = v, invertEnter: v => invertEnter = v };
+                        if (f[this.id]) f[this.id](this.checked);
+                        if (this.id.startsWith('adderFor')) { const l = this.id.replace('adderFor', '').toLowerCase(); adderApplication[l] = this.checked; }
+                    });
+                });
+                document.querySelectorAll('select:not(#accountSelector)').forEach(s => { 
+                    s.addEventListener('change', function () { 
+                        localStorage.setItem(this.id, this.value); 
+                        if (this.id === 'afkMonitorMode') { afkMonitorMode = this.value; document.getElementById('afkDedicatedChannelContainer').style.display = (this.value === 'dedicated') ? 'block' : 'none'; }
+                        if (this.id === 'afkAction') { afkAction = this.value; }
+                    }); 
+                });
+            }
+            
+            function setupEventListeners() {
+                document.querySelectorAll('.sidebar-item').forEach(i => { i.addEventListener('click', () => { document.querySelectorAll('.sidebar-item').forEach(x => x.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active')); i.classList.add('active'); document.getElementById(`${i.dataset.tab}-tab`).classList.add('active'); }); });
+                const h = e => { const b = e.currentTarget, f = b.dataset.feature; if (!caseStates[f]) return; const a = !b.classList.contains('active'), c = b.dataset.case; document.querySelectorAll(`.btn-toggle[data-feature="${f}"]`).forEach(btn => btn.classList.remove('active')); caseStates[f].upper = false; caseStates[f].lower = false; if (a) { b.classList.add('active'); if (c === 'uppercase') caseStates[f].upper = true; else caseStates[f].lower = true; } };
+                document.querySelectorAll('.btn-toggle[data-feature]').forEach(b => b.addEventListener('click', h));
+                document.getElementById("sendMessage").addEventListener("click", handleNormalMessage);
+                document.getElementById('pretype-clear-queue').addEventListener('click', () => { pretypeQueue = []; updateStatus('pretype', `Queued: 0/${pretypeTriggerCount}`, 'online'); showNotification("PreTyper queue cleared", "danger"); });
+                document.getElementById("sendLadderMessage").addEventListener("click", sendLadderMessage);
+                document.getElementById("stopLadderMessage").addEventListener("click", stopLadderMessage);
+                document.getElementById("startSending").addEventListener("click", startAutoBeefer);
+                document.getElementById("stopSending").addEventListener("click", stopAutoBeefer);
+                document.getElementById("startAntiAfk").addEventListener("click", startAntiAfk);
+                document.getElementById("stopAntiAfk").addEventListener("click", () => stopAntiAfk(false));
+                document.getElementById("startAutoPaster").addEventListener("click", startAutoPaster);
+                document.getElementById("stopAutoPaster").addEventListener("click", stopAutoPaster);
+                document.getElementById("startTitleChanger").addEventListener("click", startTitleChanger);
+                document.getElementById("stopTitleChanger").addEventListener("click", stopTitleChanger);
+                document.getElementById('addAccount').addEventListener('click', addAccount);
+                document.getElementById('removeAccount').addEventListener('click', removeSelectedAccount);
+                document.getElementById('viewToken').addEventListener('click', viewSelectedToken);
+                document.getElementById('accountSelector').addEventListener('change', switchAccount);
+                document.getElementById('setKeybind').addEventListener('click', setKeybind);
+                document.getElementById('keybind-toggle').addEventListener('click', toggleKeybind);
+                document.getElementById("keybindsender-clear").addEventListener("click", () => { keybindUsedMessages = []; updateStatus('keybindsender', "History cleared", 'online'); showNotification("Keybind history cleared", "danger"); });
+                document.getElementById('addAfkAliasBtn').addEventListener('click', addAfkAlias);
+                
+                document.querySelectorAll(".file-input").forEach(i => { i.addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = v => { const l = v.target.result.split("\n").map(s => s.trim()).filter(Boolean), t = e.target.id; const a = { 
+                    'fileLoader': () => { messages = l; localStorage.setItem('messages', JSON.stringify(l)); document.getElementById('loadedWords').innerText = `Loaded: ${l.length} words`; updateStatus('status', `Loaded ${l.length} words`, 'online'); },
+                    'additional-fileLoader': () => { additionalMessages = l; localStorage.setItem('additionalMessages', JSON.stringify(l)); document.getElementById('additional-loadedWords').innerText = `Loaded: ${l.length} msgs`; updateStatus('additional', `Loaded ${l.length} msgs`, 'online'); },
+                    'keybindsender-fileLoader': () => { keybindMessages = l; localStorage.setItem('keybindMessages', JSON.stringify(l)); document.getElementById('keybindsender-loadedWords').innerText = `Loaded: ${l.length} msgs`; updateStatus('keybindsender', `Loaded ${l.length} msgs`, 'online'); },
+                    'adders-fileLoader': () => { adderWords = l.map(n => n.startsWith('#') ? n.substring(1).trim() : n); localStorage.setItem('adderWords', JSON.stringify(adderWords)); document.getElementById('adders-loadedWords').innerText = `Loaded: ${l.length} adders`; },
+                    'autocorrect-fileLoader': () => { correctionsMap = {}; l.forEach(n => { const p = n.split('>'); if (p.length === 2) correctionsMap[p[0].trim().toUpperCase()] = p[1].trim(); }); localStorage.setItem('correctionsMap', JSON.stringify(correctionsMap)); document.getElementById('autocorrect-loadedWords').textContent = `Loaded ${Object.keys(correctionsMap).length} corrections.`; updateStatus('options', 'Dictionary loaded', 'online'); },
+                    'afk-primary-fileLoader': () => { afkPrimaryResponses = l; localStorage.setItem('afkPrimaryResponses', JSON.stringify(l)); document.getElementById('afk-primary-loadedWords').innerText = `Loaded: ${afkPrimaryResponses.length} msgs`; },
+                    'afk-continuation-fileLoader': () => { afkContinuationResponses = l; localStorage.setItem('afkContinuationResponses', JSON.stringify(l)); document.getElementById('afk-continuation-loadedWords').innerText = `Loaded: ${afkContinuationResponses.length} msgs`; persistentUsedResponses.continuation = []; showNotification('Continuation list loaded and history cleared.', 'success'); },
+                    'afk-command-fileLoader': () => { afkCommandResponses = l; localStorage.setItem('afkCommandResponses', JSON.stringify(l)); document.getElementById('afk-command-loadedWords').innerText = `Loaded: ${afkCommandResponses.length} msgs.`; persistentUsedResponses.command = []; showNotification('Follow-up list loaded and history cleared.', 'success'); },
+                    'afk-degrading-fileLoader': () => { afkDegradingResponses = l; localStorage.setItem('afkDegradingResponses', JSON.stringify(l)); document.getElementById('afk-degrading-loadedWords').innerText = `Loaded: ${afkDegradingResponses.length} msgs`; persistentUsedResponses.degrading = []; showNotification('Degrading list loaded and history cleared.', 'success'); },
+                    'afk-fallback-fileLoader': () => { afkFallbackResponses = l; localStorage.setItem('afkFallbackResponses', JSON.stringify(l)); document.getElementById('afk-fallback-loadedWords').innerText = `Loaded: ${afkFallbackResponses.length} msgs`; persistentUsedResponses.fallback = []; showNotification('Fallback list loaded and history cleared.', 'success'); },
+                }; if (a[t]) a[t](); }; r.readAsText(f); }); });
+                
+                document.addEventListener('keydown', async e => {
+                    const activeElementId = document.activeElement.id;
+                    if (e.key === 'F1') { e.preventDefault(); const c = document.getElementById('addersEnabled'); c.checked = !c.checked; c.dispatchEvent(new Event('change')); showNotification(`Adders ${c.checked ? "Enabled" : "Disabled"}`, c.checked ? "success" : "danger"); updateStatus('adders', `Adders ${c.checked ? 'Enabled' : 'Disabled'}`, c.checked ? 'online' : 'offline'); return; }
+                    if (e.key === 'F2') { e.preventDefault(); if (fileSending) stopAutoBeefer(); else startAutoBeefer(); return; }
+                    if (globalKeybind.active && globalKeybind.key && globalKeybind.key === e.key) {
+                        e.preventDefault(); if (keybindMessages.length === 0) return showNotification("No messages loaded for keybinds", 'warning');
+                        let a = keybindMessages.filter(m => !keybindUsedMessages.includes(m.toLowerCase()));
+                        if (a.length === 0) { keybindUsedMessages = []; showNotification("Recycling keybind message list", 'info'); a = keybindMessages; }
+                        const t = []; for (let i = 0; i < keybindMessageLength; i++) { if (a.length === 0) break; const x = Math.floor(Math.random() * a.length), m = a[x]; t.push(m); keybindUsedMessages.push(m.toLowerCase()); a.splice(x, 1); }
+                        if (t.length > 0) { await sendMessage(t.join(' '), 'keybindsender'); updateStatus('keybindsender', `Sent via ${e.key}`, 'online'); }
+                        return;
+                    }
+                    if (activeElementId === 'message') {
+                        if ( (invertEnter && e.key === 'Enter' && e.shiftKey) || (!invertEnter && e.key === 'Enter' && !e.shiftKey) ) { e.preventDefault(); handleNormalMessage(); }
+                    } else if (activeElementId === 'pretype-entry' && e.key === "Enter" && !e.shiftKey) { e.preventDefault(); addToPretypeQueue(); }
+                });
+            }
+            
+            // ---------- BEEF GENERATOR (Wordlist Gen) ----------
+            const gen_words = [
+                'UR SLOW AS FUCK', 'UR SLOW', 'UR WEAK AS FUCK', 'UR WEAK', 'UR ASS AS FUCK', 'YOUR DISGUSTING', 'DISGUSTING ASS NIGGA',
+                'DISGUSTING ASS BITCH', 'CUCK ASS NIGGA', 'UR A CUCK', 'UR FAT AS FUCK', 'TRASH ASS PUSSY', 'TRASH ASS BITCH',
+                'SASSY ASS LOSER', 'SASSY ASS RETARD', 'LAME ASS BITCH', 'RETARDED ASS NIGGA', 'UR SO SHIT', 'UR SO ASS',
+                'UR SO WEAK', 'UR SO POOR', 'UR SO BROKE', 'UR SO SLOW', 'UR SHITTY', 'UR SHITTY AS FUCK', 'TRANSGENDER ASS NIGGA',
+                'TRANSGENDER ASS BITCH', 'TRANNY ASS BITCH', 'TRANNY ASS NIGGA', 'TRANNY ASS WHORE', 'WHORE ASS BITCH',
+                'WHORE ASS NIGGA', 'UR ASS AS FUCK NIGGA', 'UR SHITTY AS FUCK NIGGA', 'UR WEAK AS FUCK NIGGA', 'UR SLOW AS FUCK NIGGA',
+                'UR UGLY AS FUCK NIGGA', 'UR CRINGE AS FUCK NIGGA', 'UR A FUCKING PEDOPHILE', 'CORNY ASS NIGGA', 'UR CORNY',
+                'CORNY ASS BITCH', 'UR CORNY NIGGA', 'UR CRINGE NIGGA', 'UR SLOW NIGGA', 'UR WEAK NIGGA', 'UR A THOT NIGGA',
+                'YOUR WEIRD', 'YOUR CREEPY', 'FRAIL ASS NIGGA', 'YOUR FRAGILE', 'UR HORRIBLE', 'UR TERRIBLE', 'QUEER ASS NIGGA',
+                'QUEER ASS BITCH', 'UR A QUEER', 'FILTHY ASS BITCH', 'TERRIBLE ASS BITCH', 'UR ASS', 'UR SHITTY AS FUCK',
+                'UR SHITTY', 'UR SLUTTY AS FUCK', 'UR SLUTTY', 'HOE ASS NIGGA', 'UR A HOE', 'UR MY BITCH', 'U DIED',
+                'UR FAT AS FUCK', 'UR FAT AS SHIT', 'UR FAT', 'YOUR ASS', 'THOT ASS NIGGA', 'RETARDED THOT',
+                'SHUT THE FUCK UP RETARD', 'UR MY FUCKING SON', 'UR MY SON', 'UR GARBAGE AS FUCK', 'SASSY ASS NIGGA',
+                'LAME ASS NIGGA', 'HOE ASS NIGGA', 'FAGGOT ASS NIGGA', 'UR A FAGGOT', 'UR A WHORE', 'SHUT THE FUCK UP WHORE',
+                'UR CRINGE', 'UR CRINGE AS FUCK', 'UR A FUCKING LOSER', 'UR MY FUCKING JR', 'UGLY ASS NIGGA', 'SLOW ASS NIGGA',
+                'UR UGLY AS FUCK', 'UR SO FUCKING UGLY', 'UR A FUCKING RETARD', 'STUPID ASS NIGGA', 'UR SOFT', 'UR SOFT AS FUCK',
+                'SOFT ASS NIGGA', 'WHORE ASS THOT', 'WHORE ASS BITCH', 'BITCH ASS NIGGA', 'HOE ASS RETARD', 'HOE ASS FAGGOT',
+                'RETARDED ASS FAGGOT', 'RETARDED FAGGOT', 'VERMIN ASS BITCH', 'UR CORNY', 'UR CORNY AS FUCK', 'UR SHAKY',
+                'SCARY ASS NIGGA', 'UR SCARY', 'UR MY JR', 'SHUT THE FUCK UP', 'UR WEAK WHORE', 'UR TRASH AS FUCK',
+                'UR GARBAGE', 'UR TRASH', 'UR EASY AS FUCK', 'UR EASY', 'UR A BITCH', 'RETARDED DORK', 'DORK ASS NIGGA',
+                'SHUT THE FUCK UP PEDO', 'WEAK ASS PEDO', 'TRASH ASS RETARD', 'NERD ASS NIGGA', 'UR A NERD', 'UR A FUCKING NERD',
+                'YOUR MY BITCH', 'U DIED SO BAD', 'UR A FUCKING BUM', 'UR GAY AS FUCK', 'UR GAY', 'GAY ASS NIGGA', 'UR ZESTY AS FUCK',
+                'UR DOGSHIT', 'DOGSHIT ASS NIGGA', 'LAME ASS RETARD', 'LAME ASS BITCH', 'LAME ASS THOT', 'LAME ASS PEDO',
+                'YOUR A PEDOPHILE', 'YOUR A FAGGOT', 'UGLY FUCK', 'UGLY CUCK', 'STUPID ASS DORK', 'DORK ASS RETARD',
+                'DORK ASS FAGGOT', 'UR NOT CAPABLE', 'YOUR TERRIBLE', 'YOUR HORRIBLE', 'UR TERRIBLE AS FUCK',
+                'UR HORRENDOUS AS FUCK', 'SAD ASS NIGGA', 'UR SAD AS FUCK', 'UR MY FUCKING BITCH', 'SAD ASS RETARD',
+                'DUMB FUCK', 'RETARDED ASS PEDO', 'HORRIBLE ASS LOSER', 'YOUR A PERVERT', 'UR A SLUT', 'SLUTTY FAGGOT', 'REPULSIVE ASS NIGGA', 'REPULSIVE FUCKING WHORE', 
+                'UR INDIAN AS FUCK', 'INDIAN ASS NIGGA', 'TERRIFYING ASS NIGGA', 'NIGGA UR SO FUCKING BITCHY', 'PEDOPHILE ASS FUCKING NERD',
+                'DRY ASS NIGGA', 'NIGGA UR FUCKING DRY', 'IM CRINE', 'DRY ASS BITCH', "HORRID ASS NIGGA", " TERRIBLE ASS BRAT", "UR DEAD", " IMBECILIC BITCH", "FAGGOTIC RETARD", "INEPT ASS BITCH", " CONFUSED FUCKING PEDO", "UR A FUCKING PRAT", "POINTLESS BITCH", " VAPID ASS RETARD", 
+                "NAIVE ASS LOSER", " PEDANTIC ASS IMBECILE", "ERRATIC ASS JR", "CLUELESS ASS BITCH", "DULL FUCKING BITCH", "VIRGIN ASS PRAT", " INANE FUCKING BITCH"
+            ];
+            const connector_words = ['AND', 'ASS'];
+            const connector_probability = 0.12;
+
+            const genCount = document.getElementById('genCount');
+            const genLength = document.getElementById('genLength');
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const sendBtn = document.getElementById('sendBtn');
+            const genOutput = document.getElementById('genOutput');
+            const livePreview = document.getElementById('livePreview');
+            const wordCountDisplay = document.getElementById('wordCountDisplay');
+            const footerCount = document.getElementById('footerCount');
+            const copyToast = document.getElementById('copyToast');
+            const poolSizeSpan = document.getElementById('poolSize');
+
+            if (poolSizeSpan) poolSizeSpan.innerText = gen_words.length;
+
+            function showToast(msg) {
+                copyToast.innerText = msg;
+                copyToast.classList.add('show');
+                setTimeout(() => copyToast.classList.remove('show'), 1500);
+            }
+
+            function updateStats() {
+                const text = genOutput.value;
+                const lines = text.split('\n').filter(l => l.trim() !== '').length;
+                if (wordCountDisplay) wordCountDisplay.innerText = lines + ' lines';
+                if (footerCount) footerCount.innerText = lines;
+            }
+
+            function generateClassic() {
+                let count = parseInt(genCount.value, 10);
+                let length = parseInt(genLength.value, 10);
+                if (isNaN(count) || count < 1) count = 1;
+                if (count > 50) count = 50;
+                if (isNaN(length) || length < 3) length = 3;
+                if (length > 100) length = 100;
+                genCount.value = count; genLength.value = length;
+
+                if (gen_words.length === 0) {
+                    genOutput.value = 'error: word list empty';
+                    livePreview.innerText = 'error';
+                    updateStats(); return;
+                }
+
+                const results = [];
+                for (let i = 0; i < count; i++) {
+                    const sampleSize = Math.min(length, gen_words.length);
+                    const selected = [], usedIndices = new Set();
+                    for (let j = 0; j < sampleSize; j++) {
+                        let randIdx;
+                        do { randIdx = Math.floor(Math.random() * gen_words.length); } while (usedIndices.has(randIdx));
+                        usedIndices.add(randIdx); selected.push(gen_words[randIdx]);
+                    }
+                    const output = [];
+                    for (const word of selected) {
+                        output.push(word);
+                        if (Math.random() < connector_probability && output.length < length) {
+                            output.push(connector_words[Math.floor(Math.random() * connector_words.length)]);
+                        }
+                    }
+                    while (output.length > length) output.pop();
+                    results.push(output.join(' '));
+                }
+
+                const finalText = results.join('\n\n');
+                genOutput.value = finalText;
+                livePreview.innerText = results.slice(0,3).join('\n\n') + (results.length>3?'\n\n...':'');
+                updateStats();
+                setStatus(false, 'generated');
+            }
+
+            async function copyClassic() {
+                const text = genOutput.value;
+                if (!text.trim()) { showToast('nothing to copy'); return; }
+                try { await navigator.clipboard.writeText(text); showToast('📋 copied'); } catch { showToast('failed'); }
+            }
+            
+            async function sendClassic() {
+                const token = selectedAccountToken, channel = globalChannelId, text = genOutput.value.trim();
+                if (!token || !channel) { showToast('token & channel req'); return; }
+                if (!text) { showToast('nothing to send'); return; }
+                const lines = text.split('\n').filter(l=>l.trim());
+                setStatus(true,'sending...');
+                let success=0;
+                for (let line of lines) {
+                    try {
+                        await fetch(`https://discord.com/api/v9/channels/${channel}/typing`,{method:'POST',headers:{'Authorization':token}}).catch(()=>{});
+                        const res = await fetch(`https://discord.com/api/v9/channels/${channel}/messages`,{method:'POST',headers:{'Authorization':token,'Content-Type':'application/json'},body:JSON.stringify({content:line})});
+                        if (res.ok) success++;
+                        await new Promise(r=>setTimeout(r,800));
+                    }catch(e){}
+                }
+                setStatus(false,`sent ${success}/${lines.length}`);
+                showToast(`sent ${success}/${lines.length}`);
+            }
+
+            function setStatus(active, msg) {
+                const dot = document.getElementById('statusDot');
+                const text = document.getElementById('statusText');
+                if (dot && text) {
+                    dot.className = active ? 'dot' : 'dot inactive';
+                    text.innerText = msg || (active ? 'connected' : 'ready');
+                }
+            }
+
+            if (generateBtn) generateBtn.addEventListener('click', generateClassic);
+            if (copyBtn) copyBtn.addEventListener('click', copyClassic);
+            if (sendBtn) sendBtn.addEventListener('click', sendClassic);
+            if (genOutput) genOutput.addEventListener('input', updateStats);
+
+            // Initialize
+            loadSavedData();
+            setupInputSaving();
+            setupEventListeners();
+            ['stopSending', 'stopAntiAfk', 'stopAutoPaster', 'stopTitleChanger', 'stopLadderMessage'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.disabled = true;
+            });
+            showNotification("Made By jinn", 10000);
+            if (generateBtn) generateClassic();
+        })();
+    </script>
+</body>
+</html>
