@@ -4,187 +4,171 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jinnhost</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@500;700;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #00aaff;
-            --secondary-color: #00ffff;
-            --background-color: #0a0f1a;
-            --text-color: #e0f7ff;
-            --accent-color: #40c4ff;
-            --transition-speed: 0.5s;
+            --bg: #0a0a0f;
+            --card: #121218;
+            --primary: #00d4ff;
+            --text: #f0f4ff;
+            --text-light: #b0b8d0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--background-color), #111827);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            font-family: 'Inter', system_ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* custom scrollbar (scroll wheel look) */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0d1525;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-color);
-        }
-
-        @keyframes glow {
-            0% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
-            50% { text-shadow: 0 0 20px var(--primary-color), 0 0 40px var(--secondary-color); }
-            100% { text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes backgroundFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), #0288d1);
-            background-size: 400% 400%;
-            opacity: 0.08;
-            animation: backgroundFlow 18s ease infinite;
-            z-index: -1;
+            line-height: 1.6;
         }
 
         .header {
             text-align: center;
-            padding: 50px 20px 30px;
-            animation: fadeIn 1.2s ease-out, glow 3s infinite;
+            padding: 110px 20px 70px;
         }
 
         .header h1 {
-            font-size: 3.8em;
-            margin: 0;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-family: 'Satoshi', sans-serif;
+            font-size: 5.8rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: white;
+            margin-bottom: 8px;
+            transition: all 0.6s ease;
+        }
+
+        .header h1:hover {
+            color: var(--primary);
+            letter-spacing: 2px;
         }
 
         .message {
-            font-size: 1.4em;
-            margin: 20px auto;
-            padding: 12px 24px;
-            background: rgba(0, 170, 255, 0.12);
-            border-radius: 12px;
+            font-size: 1.35rem;
+            margin: 0 auto 80px;
+            padding: 14px 36px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 60px;
             width: fit-content;
-            animation: fadeIn 1.6s ease-out;
-            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-light);
+            transition: all 0.4s ease;
         }
 
         .message:hover {
-            background: rgba(0, 170, 255, 0.22);
-            transform: translateY(-4px);
+            background: rgba(0, 212, 255, 0.15);
+            transform: translateY(-3px);
         }
 
         .hosted-files {
-            width: 85%;
-            max-width: 720px;
-            background: rgba(15, 25, 40, 0.65);
-            padding: 30px;
-            border-radius: 16px;
-            margin: 20px auto 80px;
-            box-shadow: 0 0 30px rgba(0, 170, 255, 0.35);
-            animation: fadeIn 2s ease-out;
+            width: 86%;
+            max-width: 760px;
+            margin: 0 auto 120px;
+            background: var(--card);
+            border-radius: 24px;
+            padding: 48px 42px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .hosted-files h2 {
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-            animation: pulse 2.5s infinite;
+            font-size: 1.85rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: white;
+            letter-spacing: -0.5px;
         }
 
         .tip {
             text-align: center;
-            font-size: 0.95em;
-            color: #a5d8ff;
-            margin: 15px 0 25px;
-            line-height: 1.4;
+            font-size: 0.98rem;
+            color: var(--text-light);
+            margin-bottom: 42px;
+            line-height: 1.65;
         }
 
         .file-list {
             list-style: none;
-            padding: 0;
         }
 
         .file-item {
-            margin: 14px 0;
-            padding: 16px 20px;
-            background: rgba(0, 170, 255, 0.08);
-            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all var(--transition-speed);
+            padding: 20px 28px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .file-item:hover {
-            background: rgba(0, 170, 255, 0.18);
-            transform: translateY(-3px);
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .file-item span {
+            font-size: 1.08rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .download-btn {
-            background: var(--accent-color);
-            color: #0a0f1a;
-            padding: 10px 22px;
+            background: var(--primary);
+            color: #0a0a0f;
+            padding: 12px 32px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: bold;
-            transition: all var(--transition-speed);
-            animation: pulse 2s infinite;
+            transition: all 0.35s ease;
         }
 
         .download-btn:hover {
-            background: var(--primary-color);
+            background: #00b8e0;
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0, 170, 255, 0.5);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
         }
 
         #loading {
             text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin: 50px 0;
             font-style: italic;
-            color: #80deea;
-            margin: 30px 0;
         }
 
         footer {
             position: fixed;
-            bottom: 15px;
+            bottom: 28px;
             left: 0;
             right: 0;
             text-align: center;
-            font-size: 0.85em;
-            color: #80deea;
-            opacity: 0.8;
+            font-size: 0.9rem;
+            color: #6a7a9c;
+        }
+
+        /* Clean scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121218;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 20px;
         }
     </style>
 </head>
@@ -194,18 +178,17 @@
     </header>
 
     <div class="message">
-        add swouns on discord
+        <i class="fas fa-discord"></i> add swouns on discord
     </div>
 
     <section class="hosted-files">
-        <h2>hosted files</h2>
-
+        <h2>Hosted Files</h2>
         <p class="tip">
-            tip: for py files  right-click the download button save link as… <br>
-            (browsers like to open py files instead of downloading them)
+            Tip: For .py files, right-click the download button and select “Save link as…”<br>
+            Browsers often prefer to open Python files instead of downloading them.
         </p>
-
-        <div id="loading">loading files from github...</div>
+        
+        <div id="loading">Loading files from GitHub...</div>
         <ul class="file-list" id="fileList"></ul>
     </section>
 
@@ -230,13 +213,13 @@
                     headers: { 'Accept': 'application/vnd.github.v3+json' }
                 });
 
-                if (!response.ok) throw new Error(`github api error: ${response.status}`);
+                if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
 
                 const data = await response.json();
                 const files = data.tree.filter(item => item.type === 'blob');
 
                 if (files.length === 0) {
-                    loading.textContent = 'no files found in the repo.';
+                    loading.textContent = 'No files found in the repository.';
                     return;
                 }
 
@@ -245,33 +228,37 @@
                 files.forEach(file => {
                     const path = file.path;
                     const filename = path.split('/').pop();
-
                     if (filename === 'index.html') return;
 
                     const li = document.createElement('li');
                     li.className = 'file-item';
+
                     const isHtml = filename.toLowerCase().endsWith('.html');
 
                     let btnHtml = `
-                        <button class="download-btn" onclick="forceDownload('${RAW_BASE}${path}', '${filename}')">download</button>
+                        <button class="download-btn" onclick="forceDownload('${RAW_BASE}${path}', '${filename}')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
                     `;
 
                     if (!isHtml) {
                         btnHtml = `
-                            <a href="${RAW_BASE}${path}" download="${filename}" target="_blank" class="download-btn">download</a>
+                            <a href="${RAW_BASE}${path}" download="${filename}" class="download-btn">
+                                <i class="fas fa-download"></i> Download
+                            </a>
                         `;
                     }
 
                     li.innerHTML = `
-                        <span>${filename}</span>
+                        <span><i class="fas fa-file" style="color: var(--primary);"></i> ${filename}</span>
                         ${btnHtml}
                     `;
+
                     fileList.appendChild(li);
                 });
-
             } catch (err) {
                 console.error(err);
-                loading.textContent = 'failed to load files. repo must be public.';
+                loading.textContent = 'Failed to load files. Make sure the repo is public.';
             }
         }
 
@@ -287,9 +274,8 @@
                     document.body.removeChild(link);
                     URL.revokeObjectURL(link.href);
                 })
-                .catch(err => {
-                    console.error(err);
-                    alert('download failed — try right-click → save link as…');
+                .catch(() => {
+                    alert('Download failed — try right-click → Save link as...');
                 });
         }
 
