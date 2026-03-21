@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>jinncord </title>
+    <title>pluto</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ——————————————————  RED & BLACK THEME —————————————————— */
+        /* ——————————————————  BLUE & BLACK THEME —————————————————— */
         * {
             margin: 0;
             padding: 0;
@@ -16,144 +16,142 @@
         }
 
         body {
-            background: #0a0000;
+            background: #0a0a0f;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #f5e0e0;
+            color: #e0e0f5;
         }
 
         .container {
             max-width: 1400px;
             width: 100%;
-            background: #110000;
-            border-radius: 28px;
-            box-shadow: 0 25px 50px -10px rgba(180, 0, 0, 0.3);
+            background: #111118;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -10px rgba(0, 100, 255, 0.25);
             overflow: hidden;
-            border: 1px solid rgba(200, 0, 0, 0.2);
+            border: 1px solid rgba(80, 120, 255, 0.2);
         }
 
         /* header */
         .header {
-            background: linear-gradient(145deg, #1a0000 0%, #3a0000 100%);
-            padding: 22px 28px;
+            background: linear-gradient(145deg, #0f0f1a 0%, #1a1a2e 100%);
+            padding: 20px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(200, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(80, 120, 255, 0.25);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
 
         .logo i {
-            font-size: 28px;
-            color: #ff3333;
-            filter: drop-shadow(0 2px 8px rgba(255,0,0,0.5));
+            font-size: 26px;
+            color: #4d9fff;
+            filter: drop-shadow(0 2px 8px rgba(77, 159, 255, 0.6));
         }
 
         .logo-text {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #ff6666, #ff0000);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            color: #ffffff;
         }
 
         .badge {
-            background: rgba(180, 0, 0, 0.3);
-            padding: 5px 12px;
+            background: rgba(77, 159, 255, 0.15);
+            padding: 4px 11px;
             border-radius: 30px;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
-            color: #ff9999;
-            border: 1px solid rgba(255, 50, 50, 0.3);
+            color: #a0c0ff;
+            border: 1px solid rgba(77, 159, 255, 0.3);
         }
 
         .connection-status {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 18px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 7px 16px;
             border-radius: 40px;
-            border: 1px solid rgba(200, 0, 0, 0.3);
+            border: 1px solid rgba(80, 120, 255, 0.25);
         }
 
         .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 10px;
-            background: #ff3333;
-            box-shadow: 0 0 8px #ff0000;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #4d9fff;
+            box-shadow: 0 0 8px #4d9fff;
         }
 
         .dot.inactive {
-            background: #5a2222;
+            background: #334466;
             box-shadow: none;
         }
 
         .panel-body {
-            padding: 30px 28px;
+            padding: 28px 26px;
         }
 
         .main-content {
             display: flex;
-            gap: 24px;
-            min-height: 650px;
+            gap: 22px;
+            min-height: 640px;
         }
 
         /* sidebar */
         .sidebar {
-            width: 260px;
-            background: #0d0000;
-            border-radius: 20px;
-            padding: 15px 0;
-            border: 1px solid #2a0000;
+            width: 255px;
+            background: #0c0c14;
+            border-radius: 18px;
+            padding: 14px 0;
+            border: 1px solid #1f1f2e;
         }
 
         .sidebar-section {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .sidebar-title {
-            color: #cc4444;
-            font-size: 0.7rem;
+            color: #7799ff;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0 15px 8px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid #2a0000;
+            letter-spacing: 0.6px;
+            padding: 0 14px 7px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #1f1f2e;
         }
 
         .sidebar-item {
-            padding: 10px 15px;
+            padding: 9px 14px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.9rem;
+            font-size: 0.89rem;
             font-weight: 500;
-            color: #cc6666;
+            color: #99aaff;
         }
 
         .sidebar-item:hover {
-            background-color: #1a0000;
-            color: #ff9999;
+            background-color: #141422;
+            color: #c0d0ff;
         }
 
         .sidebar-item.active {
-            background: #200000;
-            color: #ff4444;
-            border-left: 3px solid #cc0000;
+            background: #1a1a2e;
+            color: #4d9fff;
+            border-left: 3px solid #4d9fff;
         }
 
         .sidebar-item i {
@@ -163,14 +161,14 @@
 
         .tab-content {
             flex: 1;
-            background: #0d0000;
-            border-radius: 20px;
+            background: #0c0c14;
+            border-radius: 18px;
             padding: 20px;
             display: none;
             animation: fadeIn 0.3s ease;
-            border: 1px solid #2a0000;
+            border: 1px solid #1f1f2e;
             overflow-y: auto;
-            max-height: 650px;
+            max-height: 640px;
         }
 
         .tab-content.active {
@@ -178,102 +176,102 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* form elements */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-label {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.73rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #cc4444;
-            margin-bottom: 8px;
+            color: #7799ff;
+            margin-bottom: 7px;
             font-weight: 600;
         }
 
         .form-control, input[type="text"], input[type="password"], input[type="number"], textarea, select {
             width: 100%;
-            background: #1a0000;
-            border: 1px solid #3a0000;
-            border-radius: 18px;
-            padding: 12px 18px;
-            color: #ffcccc;
-            font-size: 0.95rem;
+            background: #141422;
+            border: 1px solid #2a2a44;
+            border-radius: 14px;
+            padding: 11px 16px;
+            color: #e0e0f5;
+            font-size: 0.94rem;
             transition: 0.2s ease;
         }
 
         .form-control:focus, input:focus, textarea:focus, select:focus {
             outline: none;
-            border-color: #cc0000;
-            background: #220000;
-            box-shadow: 0 0 0 3px rgba(200, 0, 0, 0.25);
+            border-color: #4d9fff;
+            background: #1a1a2e;
+            box-shadow: 0 0 0 3px rgba(77, 159, 255, 0.2);
         }
 
         textarea.form-control {
-            min-height: 100px;
+            min-height: 96px;
             resize: vertical;
         }
 
         .btn {
-            background: #1a0000;
-            border: 1px solid #440000;
-            color: #ffcccc;
-            padding: 12px 22px;
+            background: #141422;
+            border: 1px solid #2a2a44;
+            color: #e0e0f5;
+            padding: 11px 20px;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.89rem;
             cursor: pointer;
             transition: 0.2s;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 7px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .btn-primary {
-            background: linear-gradient(145deg, #5a0000, #330000);
-            border: 1px solid #880000;
+            background: linear-gradient(145deg, #1a2a66, #0f1a44);
+            border: 1px solid #4d7fff;
             color: white;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(145deg, #770000, #440000);
+            background: linear-gradient(145deg, #2a4a99, #1a2a66);
             transform: translateY(-1px);
-            border-color: #cc0000;
+            border-color: #4d9fff;
         }
 
         .btn-success {
-            background: linear-gradient(145deg, #3a0000, #220000);
-            border: 1px solid #660000;
+            background: linear-gradient(145deg, #1a3366, #0f2244);
+            border: 1px solid #4d7fff;
         }
 
         .btn-danger {
-            background: linear-gradient(145deg, #660000, #440000);
-            border: 1px solid #990000;
+            background: linear-gradient(145deg, #441a1a, #2a0f0f);
+            border: 1px solid #994d4d;
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid #550000;
+            border: 1px solid #334466;
         }
 
         .btn-outline:hover {
-            background: #1a0000;
-            border-color: #cc0000;
+            background: #141422;
+            border-color: #4d9fff;
         }
 
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 9px;
+            margin: 14px 0;
         }
 
         .btn-block {
@@ -281,47 +279,47 @@
         }
 
         .btn-toggle {
-            background: #150000;
-            border: 1px solid #3a0000;
+            background: #141422;
+            border: 1px solid #2a2a44;
         }
 
         .btn-toggle.active {
-            background: #550000;
-            border-color: #cc0000;
-            color: #ffaaaa;
+            background: #1a2a66;
+            border-color: #4d9fff;
+            color: #c0d0ff;
         }
 
         .card {
-            background: #150000;
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 20px;
-            border: 1px solid #2a0000;
+            background: #141422;
+            border-radius: 18px;
+            padding: 17px;
+            margin-bottom: 18px;
+            border: 1px solid #1f1f2e;
         }
 
         .card-title {
-            font-size: 1rem;
+            font-size: 0.97rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #ffcccc;
+            gap: 7px;
+            color: #e0e0f5;
         }
 
         .card-title i {
-            color: #cc4444;
+            color: #7799ff;
         }
 
         .status {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.8rem;
+            font-size: 0.79rem;
             padding: 5px 12px;
             border-radius: 30px;
-            background: #150000;
-            border: 1px solid #3a0000;
+            background: #141422;
+            border: 1px solid #2a2a44;
         }
 
         .status-dot {
@@ -330,9 +328,9 @@
             border-radius: 50%;
         }
 
-        .status-online { background: #ff3333; box-shadow: 0 0 8px #ff0000; }
-        .status-offline { background: #5a2222; }
-        .status-active, .status-warning { background: #ff6600; animation: pulse 1.5s infinite; }
+        .status-online { background: #4d9fff; box-shadow: 0 0 8px #4d9fff; }
+        .status-offline { background: #334466; }
+        .status-active, .status-warning { background: #ffaa00; animation: pulse 1.5s infinite; }
 
         @keyframes pulse {
             0% { opacity: 0.5; }
@@ -344,24 +342,24 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 5px;
-            font-size: 0.8rem;
-            color: #cc4444;
+            font-size: 0.79rem;
+            color: #7799ff;
         }
 
         input[type="range"] {
             -webkit-appearance: none;
             width: 100%;
-            height: 6px;
-            background: #1a0000;
+            height: 5px;
+            background: #1f1f2e;
             border-radius: 3px;
             outline: none;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #cc0000;
+            width: 15px;
+            height: 15px;
+            background: #4d9fff;
             border-radius: 50%;
             cursor: pointer;
             transition: 0.2s;
@@ -369,47 +367,47 @@
 
         input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.1);
-            background: #ff3333;
+            background: #77b3ff;
         }
 
         .checkbox {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 9px;
+            margin-bottom: 9px;
             cursor: pointer;
         }
 
         .checkbox-input {
             appearance: none;
-            width: 18px;
-            height: 18px;
-            border: 1px solid #440000;
-            border-radius: 6px;
-            background: #1a0000;
+            width: 17px;
+            height: 17px;
+            border: 1px solid #2a2a44;
+            border-radius: 5px;
+            background: #141422;
             cursor: pointer;
             position: relative;
             transition: 0.2s;
         }
 
         .checkbox-input:checked {
-            background: #660000;
-            border-color: #cc0000;
+            background: #1a2a66;
+            border-color: #4d9fff;
         }
 
         .checkbox-input:checked::after {
             content: "✓";
             position: absolute;
-            color: #ffaaaa;
-            font-size: 12px;
+            color: #c0d0ff;
+            font-size: 11px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         .checkbox-label {
-            font-size: 0.9rem;
-            color: #ffcccc;
+            font-size: 0.89rem;
+            color: #e0e0f5;
         }
 
         .file-input {
@@ -418,23 +416,23 @@
 
         .file-label {
             display: block;
-            padding: 12px;
-            background: #1a0000;
-            border: 1px dashed #550000;
-            border-radius: 18px;
+            padding: 11px;
+            background: #141422;
+            border: 1px dashed #334466;
+            border-radius: 14px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
         }
 
         .file-label:hover {
-            border-color: #cc0000;
-            background: #220000;
+            border-color: #4d9fff;
+            background: #1a1a2e;
         }
 
         .file-info {
-            font-size: 0.8rem;
-            color: #cc6666;
+            font-size: 0.79rem;
+            color: #99aaff;
             margin-top: 5px;
             text-align: center;
         }
@@ -443,14 +441,14 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 11px;
         }
 
         .chat-avatar {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: #2a0000;
+            background: #1f1f2e;
         }
 
         .chat-message-content {
@@ -461,54 +459,54 @@
         .chat-message-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 4px;
+            gap: 7px;
+            margin-bottom: 3px;
         }
 
         .chat-display-name {
-            color: #ff9999;
+            color: #a0c0ff;
             font-weight: 600;
         }
 
         .chat-username {
-            color: #cc4444;
-            font-size: 0.8rem;
+            color: #7799ff;
+            font-size: 0.79rem;
         }
 
         .chat-timestamp {
-            color: #993333;
-            font-size: 0.75rem;
+            color: #556688;
+            font-size: 0.73rem;
         }
 
         .chat-message-body {
-            color: #ffcccc;
+            color: #e0e0f5;
             white-space: pre-wrap;
             word-break: break-word;
         }
 
         .sub-card {
-            background: #1a0000;
-            border-radius: 18px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 1px solid #2a0000;
+            background: #1a1a2e;
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 14px;
+            border: 1px solid #2a2a44;
         }
 
         .alias-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
-            background: #1a0000;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            font-size: 0.8rem;
+            padding: 7px;
+            background: #1a1a2e;
+            border-radius: 7px;
+            margin-bottom: 4px;
+            font-size: 0.79rem;
         }
 
         .alias-item button {
             background: none;
             border: none;
-            color: #ff4444;
+            color: #7799ff;
             cursor: pointer;
             font-size: 1rem;
         }
@@ -520,28 +518,28 @@
             z-index: 1000;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 9px;
         }
 
         .notification {
-            padding: 12px 20px;
+            padding: 11px 19px;
             border-radius: 30px;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.89rem;
             font-weight: 500;
             box-shadow: 0 8px 20px rgba(0,0,0,0.7);
             animation: slideIn 0.3s ease forwards;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: #150000;
-            border: 1px solid #3a0000;
+            gap: 9px;
+            background: #141422;
+            border: 1px solid #2a2a44;
         }
 
-        .notification.success { border-left: 4px solid #ff3333; }
-        .notification.warning { border-left: 4px solid #ff6600; }
-        .notification.danger { border-left: 4px solid #cc0000; }
-        .notification.info { border-left: 4px solid #990000; }
+        .notification.success { border-left: 4px solid #4d9fff; }
+        .notification.warning { border-left: 4px solid #ffaa00; }
+        .notification.danger { border-left: 4px solid #ff4444; }
+        .notification.info { border-left: 4px solid #7799ff; }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateX(-20px); }
@@ -550,9 +548,9 @@
 
         .typing-indicator {
             display: none;
-            font-size: 0.8rem;
-            color: #cc4444;
-            margin-top: 10px;
+            font-size: 0.79rem;
+            color: #7799ff;
+            margin-top: 9px;
             animation: pulse 1.5s infinite;
         }
 
@@ -561,67 +559,67 @@
         }
 
         .live-preview-box {
-            background: #0d0000;
-            border-radius: 20px;
-            padding: 18px;
-            border: 1px solid #2a0000;
-            margin: 20px 0;
+            background: #0c0c14;
+            border-radius: 18px;
+            padding: 17px;
+            border: 1px solid #1f1f2e;
+            margin: 18px 0;
         }
 
         .preview-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            color: #cc4444;
+            margin-bottom: 11px;
+            color: #7799ff;
             font-weight: 500;
         }
 
         .preview-content {
-            max-height: 150px;
+            max-height: 140px;
             overflow-y: auto;
-            font-size: 0.9rem;
-            background: #080000;
-            border-radius: 14px;
-            padding: 14px;
-            border: 1px solid #330000;
-            color: #ffcccc;
+            font-size: 0.89rem;
+            background: #0a0a0f;
+            border-radius: 12px;
+            padding: 13px;
+            border: 1px solid #2a2a44;
+            color: #e0e0f5;
             white-space: pre-wrap;
         }
 
         .word-count-badge {
-            background: #1a0000;
-            padding: 4px 12px;
+            background: #1a1a2e;
+            padding: 3px 11px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            color: #ff9999;
+            font-size: 0.79rem;
+            color: #a0c0ff;
         }
 
         .stats-row {
             display: flex;
-            gap: 24px;
-            margin: 15px 0 5px;
-            color: #cc4444;
-            font-size: 0.85rem;
+            gap: 22px;
+            margin: 14px 0 4px;
+            color: #7799ff;
+            font-size: 0.83rem;
         }
 
         .pill {
-            background: #150000;
-            padding: 5px 14px;
+            background: #1a1a2e;
+            padding: 4px 13px;
             border-radius: 30px;
-            color: #ff9999;
-            border: 1px solid #3a0000;
+            color: #a0c0ff;
+            border: 1px solid #2a2a44;
         }
 
         .copy-notice {
             position: fixed;
-            bottom: 25px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1a0000;
-            border: 1px solid #880000;
-            padding: 12px 28px;
+            background: #1a1a2e;
+            border: 1px solid #4d7fff;
+            padding: 11px 26px;
             border-radius: 40px;
-            color: #ffcccc;
+            color: #e0e0f5;
             font-weight: 500;
             opacity: 0;
             transition: opacity 0.2s;
@@ -632,13 +630,13 @@
         .copy-notice.show { opacity: 1; }
 
         .stats-footer {
-            border-top: 1px solid #2a0000;
-            padding: 18px 28px;
+            border-top: 1px solid #1f1f2e;
+            padding: 17px 26px;
             display: flex;
             justify-content: space-between;
-            color: #cc4444;
-            font-size: 0.85rem;
-            background: #080000;
+            color: #7799ff;
+            font-size: 0.83rem;
+            background: #0a0a0f;
         }
 
         @media (max-width: 900px) {
@@ -646,21 +644,20 @@
             .sidebar { width: 100%; }
         }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #080000; }
-        ::-webkit-scrollbar-thumb { background: #550000; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #0a0a0f; }
+        ::-webkit-scrollbar-thumb { background: #334466; border-radius: 10px; }
     </style>
 </head>
 <body>
-    <div class="glow"></div>
     <div id="notification-container"></div>
     <div class="copy-notice" id="copyToast">📋 copied</div>
 
     <div class="container">
         <div class="header">
             <div class="logo">
-                <i class="fas fa-bolt"></i>
-                <span class="logo-text">jinn cord · BEEF</span>
+                <i class="fas fa-satellite"></i>
+                <span class="logo-text">pluto</span>
                 <span class="badge">classic</span>
             </div>
             <div class="connection-status" id="globalStatus">
@@ -671,7 +668,7 @@
 
         <div class="panel-body">
             <div class="main-content">
-                <!-- SIDEBAR (CORD jinn structure) -->
+                <!-- SIDEBAR -->
                 <div class="sidebar">
                     <div class="sidebar-section">
                         <div class="sidebar-title">Configuration</div>
@@ -680,11 +677,11 @@
                     </div>
                     <div class="sidebar-section">
                         <div class="sidebar-title">Messaging</div>
-                        <div class="sidebar-item" data-tab="normal"><i class="fas fa-american-sign-language-interpreting"></i> Normal</div>
+                        <div class="sidebar-item" data-tab="normal"><i class="fas fa-comment-dots"></i> Normal</div>
                         <div class="sidebar-item" data-tab="adders"><i class="fas fa-bookmark"></i> Adders</div>
-                        <div class="sidebar-item" data-tab="pretype"><i class="fas fa-bone"></i> Pre-Typer</div>
-                        <div class="sidebar-item" data-tab="ladder"><i class="fas fa-bomb"></i> Ladder</div>
-                        <div class="sidebar-item" data-tab="autobeefer"><i class="fas fa-angle-double-up"></i> AutoBeef</div>
+                        <div class="sidebar-item" data-tab="pretype"><i class="fas fa-keyboard"></i> Pre-Typer</div>
+                        <div class="sidebar-item" data-tab="ladder"><i class="fas fa-align-left"></i> Ladder</div>
+                        <div class="sidebar-item" data-tab="autobeefer"><i class="fas fa-angle-double-up"></i> AutoSend</div>
                         <div class="sidebar-item" data-tab="additional"><i class="fas fa-plus-circle"></i> Manual</div>
                         <div class="sidebar-item" data-tab="autopaster"><i class="fas fa-paste"></i> Spammer</div>
                     </div>
@@ -692,7 +689,7 @@
                         <div class="sidebar-title">Automation</div>
                         <div class="sidebar-item" data-tab="keybindsender"><i class="fas fa-keyboard"></i> Keybind</div>
                         <div class="sidebar-item" data-tab="antiafk"><i class="fas fa-user-clock"></i> Anti-AFK</div>
-                        <div class="sidebar-item" data-tab="titlechanger"><i class="fas fa-heading"></i> Gc Rotator</div>
+                        <div class="sidebar-item" data-tab="titlechanger"><i class="fas fa-heading"></i> GC Rotator</div>
                         <div class="sidebar-item" data-tab="wordlistgen"><i class="fas fa-atom"></i> Wordlist Gen</div>
                         <div class="sidebar-item" data-tab="stream"><i class="fas fa-stream"></i> Stream</div>
                     </div>
@@ -702,7 +699,8 @@
                     </div>
                 </div>
 
-                <!-- TAB CONTENTS (All Bondcord tabs + new Wordlist Gen) -->
+                <!-- TAB CONTENTS (All original logic preserved) -->
+
                 <!-- Accounts Tab -->
                 <div class="tab-content active" id="accounts-tab">
                     <div class="card">
@@ -727,9 +725,9 @@
                     </div>
                     <div class="card">
                         <div class="card-title"><i class="fas fa-comments"></i> Live Chat Log</div>
-                        <div id="chatlogContainer" style="height: 350px; background-color: #080000; border-radius: 18px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column-reverse; border: 1px solid #2a0000;">
+                        <div id="chatlogContainer" style="height: 350px; background-color: #0a0a0f; border-radius: 14px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column-reverse; border: 1px solid #1f1f2e;">
                             <div id="chatlog" style="display: flex; flex-direction: column;"></div>
-                            <div id="chatlogStatus" style="margin: auto; color: #9baec8;">Enter a Channel ID to see live messages.</div>
+                            <div id="chatlogStatus" style="margin: auto; color: #99aaff;">Enter a Channel ID to see live messages.</div>
                         </div>
                     </div>
                 </div>
@@ -761,7 +759,7 @@
                         <div class="card-title" style="margin-top: 20px;"><i class="fas fa-cogs"></i> Apply Adders To...</div>
                         <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                             <label class="checkbox"><input type="checkbox" id="adderForNormal" class="checkbox-input" checked><span class="checkbox-label">Normal</span></label>
-                            <label class="checkbox"><input type="checkbox" id="adderForAutobeefer" class="checkbox-input"><span class="checkbox-label">AutoBeefer</span></label>
+                            <label class="checkbox"><input type="checkbox" id="adderForAutobeefer" class="checkbox-input"><span class="checkbox-label">AutoSend</span></label>
                             <label class="checkbox"><input type="checkbox" id="adderForKeybind" class="checkbox-input"><span class="checkbox-label">Keybind</span></label>
                             <label class="checkbox"><input type="checkbox" id="adderForPretype" class="checkbox-input"><span class="checkbox-label">PreTyper</span></label>
                             <label class="checkbox"><input type="checkbox" id="adderForAntiAfk" class="checkbox-input"><span class="checkbox-label">Anti AFK</span></label>
@@ -807,7 +805,7 @@
                     </div>
                 </div>
 
-                <!-- AutoBeefer Tab -->
+                <!-- AutoBeefer Tab (renamed to AutoSend in UI) -->
                 <div class="tab-content" id="autobeefer-tab">
                     <div class="card">
                         <div class="card-title"><i class="fas fa-database"></i> Message Source</div>
@@ -831,7 +829,7 @@
                     </div>
                 </div>
 
-                <!-- Additional Tab -->
+                <!-- Additional / Manual Tab -->
                 <div class="tab-content" id="additional-tab">
                     <div class="card">
                         <div class="card-title"><i class="fas fa-comment-alt"></i> Manual Message</div>
@@ -907,7 +905,7 @@
                 <div class="tab-content" id="titlechanger-tab">
                     <div class="card">
                         <div class="card-title"><i class="fas fa-heading"></i> Titles List</div>
-                        <div class="file-info" style="text-align: left; margin-bottom: 15px; padding: 10px; border-radius: 5px; background-color: rgba(255, 180, 70, 0.1); color: #ffb570;"><i class="fas fa-exclamation-triangle"></i> <strong>Rate-Limit Warning:</strong> Use with caution.</div>
+                        <div class="file-info" style="text-align: left; margin-bottom: 15px; padding: 10px; border-radius: 5px; background-color: rgba(77, 159, 255, 0.1); color: #a0c0ff;"><i class="fas fa-exclamation-triangle"></i> <strong>Rate-Limit Warning:</strong> Use with caution.</div>
                         <div class="form-group"><label class="form-label">Titles (one per line)</label><textarea id="titlechanger-titles" class="form-control" placeholder="Enter titles (one per line)"></textarea></div>
                         <div class="form-group"><div class="slider-label"><span>Delay Between Changes (Seconds)</span><span id="titlechangerDelayValue">300</span></div><input type="range" id="titlechangerDelaySlider" min="1" max="600" step="1" value="300"></div>
                         <div class="btn-group" style="margin-top: 15px;"><button id="startTitleChanger" class="btn btn-success"><i class="fas fa-play"></i> Start Title Changer</button><button id="stopTitleChanger" class="btn btn-danger"><i class="fas fa-stop"></i> Stop Title Changer</button></div>
@@ -918,7 +916,7 @@
                 <!-- WORDLIST GEN TAB -->
                 <div class="tab-content" id="wordlistgen-tab">
                     <div class="card">
-                        <div class="card-title"><i class="fas fa-atom"></i> BEEF WORDLIST GENERATOR</div>
+                        <div class="card-title"><i class="fas fa-atom"></i> WORDLIST GENERATOR</div>
                         <div class="row-duo" style="display: flex; gap: 14px;">
                             <div class="form-group" style="flex:1">
                                 <label class="form-label">count (1-50)</label>
@@ -996,7 +994,7 @@
         <!-- FOOTER -->
         <div class="stats-footer">
             <span><i class="fas fa-chart-simple"></i> lines: <span id="footerCount">0</span></span>
-            <span class="pill"><i class="fas fa-wind"></i> bond · gen</span>
+            <span class="pill"><i class="fas fa-satellite"></i> pluto</span>
         </div>
     </div>
 
@@ -1149,11 +1147,11 @@
             function handleNormalMessage() { const i = document.getElementById("message"), m = i.value; if (!m.trim()) return; i.value = ""; const t = m.split('\n').filter(s => s.trim().length > 0); if (!normalDelayEnabled) { for (const s of t) sendMessage(s, 'normal'); } else { messageQueue.push(...t); if (!isProcessingQueue && !queueTimer) queueTimer = setTimeout(() => { processMessageQueue(); queueTimer = null; }, normalDelayTime * 1000); } }
             function processMessageQueue() { if (messageQueue.length === 0) { isProcessingQueue = false; return; } isProcessingQueue = true; let t = setInterval(() => { if (isRateLimitedPaused) return; if (messageQueue.length > 0) sendMessage(messageQueue.shift(), 'normal'); else { clearInterval(t); isProcessingQueue = false; } }, BURST_SEND_INTERVAL); }
             async function sendPretypeQueue() { if (pretypeQueue.length === 0) return; updateStatus('pretype', `Sending ${pretypeQueue.length} messages...`, 'active'); const m = [...pretypeQueue]; pretypeQueue = []; updateStatus('pretype', `Queued: 0/${pretypeTriggerCount}`, 'online'); for (const s of m) { if (isRateLimitedPaused) break; await sendMessage(s, 'pretype'); await new Promise(r => setTimeout(r, pretypeMessageDelay * 1000)); } if (!isRateLimitedPaused) updateStatus('pretype', 'Ready to queue messages', 'online'); }
-            function startAutoBeefer() { if (messages.length === 0) return showNotification("No words loaded for AutoBeefer!", "warning"); if (fileSending) return; fileSending = true; document.getElementById('startSending').disabled = true; document.getElementById('stopSending').disabled = false; showNotification("AutoBeefer started", "success"); if (burstModeEnabled) { updateStatus('status', "AutoBeefer (Burst Mode) running...", 'active'); const e = async () => { if (!fileSending || isRateLimitedPaused) return; for (let i = 0; i < burstMessageCount; i++) { if (!fileSending || isRateLimitedPaused) break; await sendBeeferMessage(true); await new Promise(r => setTimeout(r, AUTO_BEEFER_BURST_DELAY)); } if (fileSending && !isRateLimitedPaused) updateStatus('status', "AutoBeefer (Burst Mode) running...", 'active'); }; e(); fileSendingInterval = setInterval(e, burstInterval * 1000); } else { updateStatus('status', "AutoBeefer running...", 'active'); const s = async () => { if (!fileSending || isRateLimitedPaused) return; await sendBeeferMessage(false); }; s(); fileSendingInterval = setInterval(s, delayTime * 1000); } }
+            function startAutoBeefer() { if (messages.length === 0) return showNotification("No words loaded for AutoSend!", "warning"); if (fileSending) return; fileSending = true; document.getElementById('startSending').disabled = true; document.getElementById('stopSending').disabled = false; showNotification("AutoSend started", "success"); if (burstModeEnabled) { updateStatus('status', "AutoSend (Burst Mode) running...", 'active'); const e = async () => { if (!fileSending || isRateLimitedPaused) return; for (let i = 0; i < burstMessageCount; i++) { if (!fileSending || isRateLimitedPaused) break; await sendBeeferMessage(true); await new Promise(r => setTimeout(r, AUTO_BEEFER_BURST_DELAY)); } if (fileSending && !isRateLimitedPaused) updateStatus('status', "AutoSend (Burst Mode) running...", 'active'); }; e(); fileSendingInterval = setInterval(e, burstInterval * 1000); } else { updateStatus('status', "AutoSend running...", 'active'); const s = async () => { if (!fileSending || isRateLimitedPaused) return; await sendBeeferMessage(false); }; s(); fileSendingInterval = setInterval(s, delayTime * 1000); } }
             async function sendBeeferMessage(isBurst = false) {
                 let a = messages.filter((m, i) => !skippedIndexes.has(i) && !recentlyUsedWords.includes(m.toLowerCase()));
                 if (lastSentAutobeeferIndex !== -1 && a.length > 1) { const t = a.filter(m => m !== messages[lastSentAutobeeferIndex]); if (t.length > 0) a = t; }
-                if (a.length === 0) { if (skippedIndexes.size >= messages.length) { skippedIndexes.clear(); recentlyUsedWords = []; showNotification("AutoBeefer list recycled. Starting over.", "info"); } a = messages.filter((m, i) => !skippedIndexes.has(i)); }
+                if (a.length === 0) { if (skippedIndexes.size >= messages.length) { skippedIndexes.clear(); recentlyUsedWords = []; showNotification("AutoSend list recycled. Starting over.", "info"); } a = messages.filter((m, i) => !skippedIndexes.has(i)); }
                 if (a.length === 0) { if (!isBurst) updateStatus('status', "No words available.", 'offline'); stopAutoBeefer(); return; }
                 let s = [];
                 for (let i = 0; i < Math.min(messageLength, a.length); i++) {
@@ -1163,7 +1161,7 @@
                 }
                 if (s.length > 0) await sendMessage(s.join(' '), 'autobeefer');
             }
-            const stopAutoBeefer = () => { if (!fileSending) return; fileSending = false; showNotification("AutoBeefer stopped", "danger"); if (fileSendingInterval) clearInterval(fileSendingInterval); if (!isRateLimitedPaused) updateStatus('status', "Stopped by user", 'online'); document.getElementById('startSending').disabled = false; document.getElementById('stopSending').disabled = true; lastSentAutobeeferIndex = -1; };
+            const stopAutoBeefer = () => { if (!fileSending) return; fileSending = false; showNotification("AutoSend stopped", "danger"); if (fileSendingInterval) clearInterval(fileSendingInterval); if (!isRateLimitedPaused) updateStatus('status', "Stopped by user", 'online'); document.getElementById('startSending').disabled = false; document.getElementById('stopSending').disabled = true; lastSentAutobeeferIndex = -1; };
             
             // --- Accounts ---
             const updateAccountListUI = t => { const s = document.getElementById('accountSelector'); s.innerHTML = ''; if (accounts.length === 0) { const o = document.createElement('option'); o.textContent = "No accounts added"; o.disabled = true; s.appendChild(o); selectedAccountToken = null; return; } accounts.forEach(a => { const o = document.createElement('option'); o.value = a.token; o.textContent = a.alias; s.appendChild(o); }); if (t && accounts.some(a => a.token === t)) s.value = t; else if (accounts.length > 0) s.value = accounts[0].token; selectedAccountToken = s.value; localStorage.setItem('selectedAccountToken', selectedAccountToken); };
@@ -1659,7 +1657,7 @@
                 const el = document.getElementById(id);
                 if (el) el.disabled = true;
             });
-            showNotification("Made By jinn", 10000);
+            showNotification("Made with love", 5000);
             if (generateBtn) generateClassic();
         })();
     </script>
